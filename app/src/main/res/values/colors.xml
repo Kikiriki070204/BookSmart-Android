@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="Btn1">#2F5233 </color>
+    <color name="Btn2">#A47149 </color>
+    <color name="Borders">#453726 </color>
+    <color name="PopUps">#8E9775 </color>
+    <color name="Background">#FFF9EC </color>
+    <color name="hr">#3A332A </color>
+    <color name="CardBackground">#E1C5AB </color>
+</resources>

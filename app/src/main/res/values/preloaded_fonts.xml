@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/</item>
+        <item>@font/league_spartan</item>
+        <item>@font/league_spartan_bold</item>
+        <item>@font/league_spartan_light</item>
+        <item>@font/league_spartan_medium</item>
+        <item>@font/league_spartan_semibold</item>
+        <item>@font/rowdies</item>
+        <item>@font/rowdies_bold</item>
+        <item>@font/rowdies_light</item>
+    </array>
+</resources>
