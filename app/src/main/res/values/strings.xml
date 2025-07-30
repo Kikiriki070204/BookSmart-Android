@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">BookSmartApp</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name="Register">Regístrate</string>
+    <string name="txtLogin">Ingresa los siguientes datos</string>
+    <string name="btnRegister">Registrarse</string>
+    <string name="btnLogin">Iniciar sesión</string>
+    <string name="formName">Nombre(s)</string>
+    <string name="formFLastName">Apellido Paterno</string>
+    <string name="formMLastName">Apellido Materno</string>
+    <string name="formEmail">Correo electrónico</string>
+    <string name="formPass">Contraseña</string>
+    <string name="formConf">Confirmar contraseña</string>
+    <string name="btnConf">Confirmar</string>
+    <string name="welcome">¡Siempre es bueno tenerte de \n vuelta!</string>
+    <string name="regConf">Confirma tu correo \n electrónico</string>
+    <string name="codeConf">Ingresa el código que enviamos a tu correo</string>
+    <string name="validate">Validar código</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
