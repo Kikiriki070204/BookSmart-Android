@@ -12,6 +12,6 @@
         android:id="@+id/splash_logo"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:src="@mipmap/ic_launcher_foreground"
+        android:src="@drawable/booksmart_green_text"
         android:contentDescription="@string/app_name" />
 </RelativeLayout>

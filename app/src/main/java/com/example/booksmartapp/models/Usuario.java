@@ -3,19 +3,19 @@ package com.example.booksmartapp.models;
 public class Usuario {
     private int id;
     private String nombre;
-    private String apellido_paterno;
-    private String apellido_materno;
+    private String apellido;
     private String correo;
-    private String contraseña;
+    private String contrasena;
+    private String celular;
     private boolean active;
     private int rol_id;
-    public Usuario(int id, String nombre, String apellido_paterno, String apellido_materno, String correo, String contraseña, boolean active, int rol_id) {
+    public Usuario(int id, String nombre, String apellido, String correo, String celular, String contrasena, boolean active, int rol_id) {
         this.id = id;
         this.nombre = nombre;
-        this.apellido_paterno = apellido_paterno;
-        this.apellido_materno = apellido_materno;
+        this.apellido = apellido;
         this.correo = correo;
-        this.contraseña = contraseña;
+        this.celular = celular;
+        this.contrasena = contrasena;
         this.active = active;
         this.rol_id = rol_id;
     }
@@ -36,22 +36,13 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getApellido_paterno() {
-        return apellido_paterno;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setApellido_paterno(String apellido_paterno) {
-        this.apellido_paterno = apellido_paterno;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
-
-    public String getApellido_materno() {
-        return apellido_materno;
-    }
-
-    public void setApellido_materno(String apellido_materno) {
-        this.apellido_materno = apellido_materno;
-    }
-
     public String getCorreo() {
         return correo;
     }
@@ -60,12 +51,19 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getCelular() {
+        return celular;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public boolean isActive() {

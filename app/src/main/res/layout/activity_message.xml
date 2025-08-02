@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MessageActivity">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="227dp"
+        android:layout_height="227dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/booksmart_icon"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/icon"
+        android:fontFamily="@font/league_spartan_semibold"
+        android:textSize="40dp"
+        android:gravity="center"
+        android:textColor="@color/Borders"
+        android:text="@string/mssg1"/>
+</RelativeLayout>
