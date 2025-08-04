@@ -12,4 +12,5 @@
     <color name="itemsBackground">#FEF7FF</color>
     <color name="gray">#49454F</color>
     <color name="another">#F3EDF7</color>
+    <color name="fill">#A09590</color>
 </resources>

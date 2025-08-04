@@ -42,6 +42,19 @@
                 android:layout_marginBottom="10dp"
                 />
 
+            <TextView
+                android:id="@+id/no_prestamo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/no_prestamo"
+                android:gravity="center"
+                android:fontFamily="@font/league_spartan_medium"
+                android:textSize="40sp"
+                android:textColor="@color/Borders"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone"
+                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/bibliotecasRecycler"
                 android:layout_width="wrap_content"

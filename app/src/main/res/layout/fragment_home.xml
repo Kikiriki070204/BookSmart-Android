@@ -66,6 +66,34 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_below="@id/settings"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></com.google.android.material.card.MaterialCardView>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="6dp"
+        app:cardBackgroundColor="@color/CardBackground"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/prestamos"
+                android:fontFamily="@font/league_spartan_medium"
+                android:textSize="20sp"
+                android:textColor="@color/Borders"
+                android:layout_marginBottom="10dp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bibliotecasRecycler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>

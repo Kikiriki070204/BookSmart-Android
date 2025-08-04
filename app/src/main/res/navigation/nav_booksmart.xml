@@ -7,4 +7,8 @@
         android:id="@+id/homeFragment"
         android:name="com.example.booksmartapp.ui.home.HomeFragment"
         android:label="Inicio"/>
+    <fragment
+        android:id="@+id/detalleFragment"
+        android:name="com.example.booksmartapp.detail.PrestamoDetalleFragment"
+        android:label="Detalle"/>
 </navigation>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/Background"
+    tools:context=".detail.PrestamoDetalleFragment">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/league_spartan_medium"
+        android:textSize="30sp"
+        android:textColor="@color/Borders"
+        android:gravity="center"
+        android:text="@string/detalle_title"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bookDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/title"
+        app:cardBackgroundColor="@color/CardBackground"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:orientation="horizontal">
+                <!-- Imagen -->
+                <ImageView
+                    android:id="@+id/imagenLibro"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/thumbnail"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tituloLibro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/league_spartan"
+                        android:textSize="20sp"
+                        android:textColor="@color/Borders"
+                        android:text="Libro"
+                        app:layout_constraintTop_toTopOf="@id/imagenLibro"
+                        app:layout_constraintStart_toEndOf="@id/imagenLibro" />
+                    <TextView
+                        android:id="@+id/autor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/league_spartan"
+                        android:textSize="18sp"
+                        android:textColor="@color/Borders"
+                        android:text="Autor"
+                        app:layout_constraintTop_toTopOf="@id/imagenLibro"
+                        app:layout_constraintStart_toEndOf="@id/imagenLibro" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/state"
+                        android:layout_width="110dp"
+                        android:layout_marginTop="10dp"
+                        app:cornerRadius="5dp"
+                        app:backgroundTint="@color/PopUps"
+                        android:layout_height="30dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:padding="20dp"
+                app:cardCornerRadius="10dp"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:id="@+id/textLinear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/prestamo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/league_spartan_semibold"
+                            android:textSize="16sp"
+                            android:textColor="@color/Btn1"
+                            android:text="@string/date1"/>
+                        <TextView
+                            android:id="@+id/entrega"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/league_spartan_semibold"
+                            android:textSize="16sp"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/Borders"
+                            android:text="@string/date2"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/datesLinear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/date_prestamo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/league_spartan_semibold"
+                            android:textSize="16sp"
+                            android:textColor="@color/Btn2"/>
+                        <TextView
+                            android:id="@+id/date_entrega"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/league_spartan_semibold"
+                            android:textSize="16sp"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/Btn2"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/AdditionalDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/bookDetail"
+        app:cardBackgroundColor="@color/CardBackground"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/league_spartan_semibold"
+                android:textColor="@color/hr"
+                android:textSize="24sp"
+                android:text="@string/desc"
+                />
+            <TextView
+                android:id="@+id/bookDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="16sp"
+                android:textColor="@color/Borders"
+                android:fontFamily="@font/league_spartan"
+                android:text="@string/select_biblioteca"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/league_spartan_semibold"
+                android:textColor="@color/hr"
+                android:textSize="24sp"
+                android:text="@string/editorial"
+                />
+            <TextView
+                android:id="@+id/editorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="16sp"
+                android:textColor="@color/Borders"
+                android:fontFamily="@font/league_spartan"
+                android:text="@string/select_biblioteca"/>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottomnav_shape"
+                android:layout_gravity="bottom|center_horizontal"
+                app:itemIconTint="@color/black"
+                app:labelVisibilityMode="unlabeled"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                app:menu="@menu/bottom_nav_menu" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

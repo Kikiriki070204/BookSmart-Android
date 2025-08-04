@@ -26,6 +26,15 @@
 
     <!--Home-->
     <string name="welcome_settings">Hola, bienvenido de vuelta</string>
+    <string name="prestamos">Tus préstamos</string>
+    <string name="no_prestamo">Por el momento no \ncuentas con ningún \npréstamo</string>
+
+    <!--Prestamos-->
+    <string name="detalle_title">Detalles de tu \npréstamo</string>
+    <string name="date1">Fecha de préstamo</string>
+    <string name="date2">Fecha de entrega</string>
+    <string name="desc">Descripción</string>
+    <string name="editorial">Editorial</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
