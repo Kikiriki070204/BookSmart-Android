@@ -1,5 +1,6 @@
 package com.example.booksmartapp.register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.booksmartapp.BottomNavigationActivity;
 import com.example.booksmartapp.R;
 import com.example.booksmartapp.register.viewmodels.AuthViewModel;
 import com.example.booksmartapp.retrofit.auth_request;
@@ -39,6 +41,11 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
         findViews();
+
+        btnRegistrar.setOnClickListener(onClick -> {
+            Intent intent = new Intent(this, BottomNavigationActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void findViews()

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/userData"
+        android:title="Tus datos"/>
+    <item
+        android:id="@+id/change_pass"
+        android:title="Cambiar contraseña"/>
+    <item
+        android:id="@+id/logout"
+        android:title="Salir"/>
+</menu>

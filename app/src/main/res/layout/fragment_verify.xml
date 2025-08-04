@@ -51,7 +51,7 @@
             android:background="@drawable/edit_text_shape"/>
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_below="@id/fieldsContainer"

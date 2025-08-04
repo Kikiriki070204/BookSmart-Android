@@ -8,176 +8,196 @@
     tools:context=".register.RegisterActivity"
     android:background="@color/white">
 
-    <TextView
-    android:id="@+id/txtreg"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="40dp"
-    android:fontFamily="@font/league_spartan_semibold"
-    android:textSize="30sp"
-    android:textColor="@color/Borders"
-    android:text="@string/Register"/>
-    <TextView
-        android:id="@+id/txtData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtreg"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:fontFamily="@font/league_spartan_semibold"
-        android:textSize="24sp"
-        android:textColor="@color/Btn2"
-        android:text="@string/txtLogin"/>
-
-    <LinearLayout
-        android:id="@+id/fieldsContainer"
+    <ScrollView
+        android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtData"
-        android:layout_alignStart="@id/txtData"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="30dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/formContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="80dp">
+
 
             <TextView
+                android:id="@+id/txtreg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/league_spartan"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/league_spartan_semibold"
+                android:textSize="30sp"
                 android:textColor="@color/Borders"
-                android:textSize="20sp"
-                android:text="@string/formName" />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editNombre"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:maxLength="50"
-                android:background="@drawable/edit_text_shape"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
+                android:text="@string/Register"/>
             <TextView
+                android:id="@+id/txtData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/league_spartan"
-                android:textColor="@color/Borders"
-                android:textSize="20sp"
-                android:text="@string/formFLastName" />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editApellido"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_shape"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/league_spartan"
-                android:textColor="@color/Borders"
-                android:textSize="20sp"
-                android:text="@string/formNumber" />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editCelular"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_shape"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/league_spartan"
-                android:textColor="@color/Borders"
-                android:textSize="20sp"
-                android:text="@string/formEmail" />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editEmail"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_shape"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/league_spartan"
-                android:textColor="@color/Borders"
-                android:textSize="20sp"
-                android:text="@string/formPass" />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editPassword"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:inputType="textPassword"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_shape"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/league_spartan"
-                android:textColor="@color/Borders"
-                android:textSize="20sp"
-                android:text="@string/formConf" />
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/editConfPassword"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:inputType="textPassword"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_text_shape"/>
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_below="@id/txtreg"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="30dp"
+                android:fontFamily="@font/league_spartan_semibold"
+                android:textSize="24sp"
+                android:textColor="@color/Btn2"
+                android:text="@string/txtLogin"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegistrar"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/fieldsContainer"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/button_shape_3"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:text="@string/btnConf"
-        android:fontFamily="@font/league_spartan_semibold"
-        />
+            <LinearLayout
+                android:id="@+id/fieldsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtData"
+                android:layout_alignStart="@id/txtData"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/league_spartan"
+                        android:textColor="@color/Borders"
+                        android:textSize="20sp"
+                        android:text="@string/formName" />
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editNombre"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:maxLength="50"
+                        android:background="@drawable/edit_text_shape"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/league_spartan"
+                        android:textColor="@color/Borders"
+                        android:textSize="20sp"
+                        android:text="@string/formFLastName" />
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editApellido"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_shape"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/league_spartan"
+                        android:textColor="@color/Borders"
+                        android:textSize="20sp"
+                        android:text="@string/formNumber" />
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editCelular"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_shape"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/league_spartan"
+                        android:textColor="@color/Borders"
+                        android:textSize="20sp"
+                        android:text="@string/formEmail" />
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editEmail"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_shape"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/league_spartan"
+                        android:textColor="@color/Borders"
+                        android:textSize="20sp"
+                        android:text="@string/formPass" />
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editPassword"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="match_parent"
+                        android:inputType="textPassword"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_shape"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/league_spartan"
+                        android:textColor="@color/Borders"
+                        android:textSize="20sp"
+                        android:text="@string/formConf" />
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/editConfPassword"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="match_parent"
+                        android:inputType="textPassword"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text_shape"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegistrar"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/fieldsContainer"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_shape_3"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="@string/btnConf"
+                android:fontFamily="@font/league_spartan_semibold"
+                />
+        </RelativeLayout>
+    </ScrollView>
+
+
 
 </RelativeLayout>

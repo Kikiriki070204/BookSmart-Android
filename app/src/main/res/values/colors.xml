@@ -9,4 +9,7 @@
     <color name="Background">#FFF9EC </color>
     <color name="hr">#3A332A </color>
     <color name="CardBackground">#E1C5AB </color>
+    <color name="itemsBackground">#FEF7FF</color>
+    <color name="gray">#49454F</color>
+    <color name="another">#F3EDF7</color>
 </resources>

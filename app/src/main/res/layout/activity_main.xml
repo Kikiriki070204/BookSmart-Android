@@ -19,13 +19,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="200dp"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegistrar"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_marginTop="100dp"
-        android:background="@drawable/button_shape"
         android:fontFamily="@font/league_spartan_semibold"
         android:text="@string/btnRegister"
         android:textAllCaps="false"
@@ -33,15 +32,18 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon" />
+        app:layout_constraintTop_toBottomOf="@+id/icon"
+        app:cornerRadius="10dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/Btn1"
+        app:backgroundTint="@color/Btn1"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/button_shape_2"
         android:fontFamily="@font/league_spartan_semibold"
         android:text="@string/btnLogin"
         android:textAllCaps="false"
@@ -49,6 +51,10 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegistrar" />
+        app:layout_constraintTop_toBottomOf="@+id/btnRegistrar"
+        app:cornerRadius="10dp"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/PopUps"
+        app:backgroundTint="@color/PopUps"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

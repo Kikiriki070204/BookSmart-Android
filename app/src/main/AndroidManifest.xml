@@ -23,11 +23,11 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".register.RegisterActivity"
             android:exported="false" />
+        <activity
+            android:name=".BottomNavigationActivity"
+            android:exported="false"/>
         <activity
             android:name=".SplashScreen"
             android:exported="true"
