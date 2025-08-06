@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.booksmartapp.models.Usuario;
-import com.example.booksmartapp.register.RegisterRequest;
+import com.example.booksmartapp.models.RegisterRequest;
 import com.example.booksmartapp.register.repository.RegisterRepository;
 
 public class AuthViewModel extends ViewModel {

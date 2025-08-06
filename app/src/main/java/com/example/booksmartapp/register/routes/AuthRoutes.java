@@ -1,6 +1,6 @@
 package com.example.booksmartapp.register.routes;
 
-import com.example.booksmartapp.register.RegisterRequest;
+import com.example.booksmartapp.models.RegisterRequest;
 import com.example.booksmartapp.responses.ApiResponse;
 import com.example.booksmartapp.responses.UsuarioResponse;
 

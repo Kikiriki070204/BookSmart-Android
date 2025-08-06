@@ -68,15 +68,25 @@
                         android:textColor="@color/Borders"
                         android:textSize="20sp"
                         android:text="@string/formName" />
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/editNombre"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:maxLength="50"
-                        android:background="@drawable/edit_text_shape"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editNombre"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:maxLength="50"
+                            android:background="@drawable/edit_text_shape"/>
+                        <TextView
+                            android:id="@+id/errorNombre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/league_spartan"
+                            android:visibility="gone"
+                            android:layout_marginBottom="2dp"
+                            android:textColor="@color/error"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,14 +99,24 @@
                         android:textColor="@color/Borders"
                         android:textSize="20sp"
                         android:text="@string/formFLastName" />
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/editApellido"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/edit_text_shape"/>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editApellido"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/edit_text_shape"/>
+                    <TextView
+                        android:id="@+id/errorApellido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/league_spartan"
+                        android:visibility="gone"
+                        android:layout_marginBottom="2dp"
+                        android:textColor="@color/error"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -109,14 +129,27 @@
                         android:textColor="@color/Borders"
                         android:textSize="20sp"
                         android:text="@string/formNumber" />
-                    <androidx.appcompat.widget.AppCompatEditText
+
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editCelular"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/edit_text_shape"/>
+                        android:layout_height="50dp"
+                        android:layout_marginRight="10dp"
+                        android:inputType="number"
+                        android:background="@drawable/edit_text_shape"
+                        android:maxLength="10" />
+                    <TextView
+                        android:id="@+id/errorCelular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/league_spartan"
+                        android:visibility="gone"
+                        android:layout_marginBottom="2dp"
+                        android:textColor="@color/error"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -129,14 +162,72 @@
                         android:textColor="@color/Borders"
                         android:textSize="20sp"
                         android:text="@string/formEmail" />
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/editEmail"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@drawable/edit_text_shape"/>
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editEmail"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/edit_text_shape"/>
+                    <TextView
+                        android:id="@+id/errorEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/league_spartan"
+                        android:visibility="gone"
+                        android:layout_marginBottom="2dp"
+                        android:textColor="@color/error"/>
                 </LinearLayout>
+
+                <!--METER GENERO -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/league_spartan"
+                        android:textColor="@color/Borders"
+                        android:textSize="20sp"
+                        android:text="@string/formGender" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/inputGender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Género"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        app:boxStrokeColor="#26453726"
+                        app:boxBackgroundColor="@color/white"
+                        app:hintTextColor="#26453726"
+                        app:boxStrokeWidth="2dp"
+                        app:boxStrokeWidthFocused="3dp">
+                        <AutoCompleteTextView
+                            android:id="@+id/selectGender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/league_spartan"
+                            android:padding="15dp"
+                            android:inputType="none"
+                            android:focusable="true"
+                            android:clickable="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/league_spartan"
+                        android:visibility="gone"
+                        android:layout_marginBottom="2dp"
+                        android:textColor="@color/error"/>
+                </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -149,14 +240,24 @@
                         android:textColor="@color/Borders"
                         android:textSize="20sp"
                         android:text="@string/formPass" />
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/editPassword"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="match_parent"
-                        android:inputType="textPassword"
-                        android:layout_height="40dp"
-                        android:background="@drawable/edit_text_shape"/>
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editPassword"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="match_parent"
+                            android:inputType="textPassword"
+                            android:layout_height="50dp"
+                            android:background="@drawable/edit_text_shape"/>
+                    <TextView
+                        android:id="@+id/errorPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/league_spartan"
+                        android:visibility="gone"
+                        android:layout_marginBottom="2dp"
+                        android:textColor="@color/error"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -170,14 +271,24 @@
                         android:textColor="@color/Borders"
                         android:textSize="20sp"
                         android:text="@string/formConf" />
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/editConfPassword"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="match_parent"
-                        android:inputType="textPassword"
-                        android:layout_height="40dp"
-                        android:background="@drawable/edit_text_shape"/>
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editConfPassword"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="match_parent"
+                            android:inputType="textPassword"
+                            android:layout_height="50dp"
+                            android:background="@drawable/edit_text_shape"/>
+                    <TextView
+                        android:id="@+id/errorConfPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/league_spartan"
+                        android:visibility="gone"
+                        android:layout_marginBottom="2dp"
+                        android:textColor="@color/error"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -189,6 +300,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/button_shape_3"
+                app:backgroundTint="@color/Btn2"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="20sp"

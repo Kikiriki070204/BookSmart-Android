@@ -8,7 +8,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import com.example.booksmartapp.models.Usuario;
-import com.example.booksmartapp.register.RegisterRequest;
+import com.example.booksmartapp.models.RegisterRequest;
 import com.example.booksmartapp.register.routes.AuthRoutes;
 import com.example.booksmartapp.responses.ApiResponse;
 import com.example.booksmartapp.responses.UsuarioResponse;

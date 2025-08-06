@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".register.VerifyFragment">
+    tools:context=".register.VerifyActivity">
+
 
     <TextView
         android:id="@+id/txtConf"
@@ -53,16 +55,16 @@
 
     <com.google.android.material.button.MaterialButton
         android:layout_width="350dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_below="@id/fieldsContainer"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/code_button_shape"
+        app:cornerRadius="20dp"
+        android:backgroundTint="@color/Btn2"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="20dp"
         android:text="@string/validate"
         android:fontFamily="@font/league_spartan_semibold"
         />
-
 </RelativeLayout>

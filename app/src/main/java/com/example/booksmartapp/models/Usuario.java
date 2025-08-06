@@ -7,9 +7,10 @@ public class Usuario {
     private String correo;
     private String contrasena;
     private String celular;
+    private String genero;
     private boolean active;
     private int rol_id;
-    public Usuario(int id, String nombre, String apellido, String correo, String celular, String contrasena, boolean active, int rol_id) {
+    public Usuario(int id, String nombre, String apellido, String correo, String celular, String contrasena, boolean active, int rol_id, String genero) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -18,6 +19,7 @@ public class Usuario {
         this.contrasena = contrasena;
         this.active = active;
         this.rol_id = rol_id;
+        this.genero = genero;
     }
 
     public int getId() {
@@ -81,5 +83,11 @@ public class Usuario {
     public void setRol_id(int rol_id) {
         this.rol_id = rol_id;
     }
+    public String getGenero() {
+        return genero;
+    }
 
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
 }

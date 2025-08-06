@@ -9,6 +9,7 @@
     <string name="formFLastName">Apellido</string>
     <string name="formNumber">Celular</string>
     <string name="formEmail">Correo electrónico</string>
+    <string name="formGender">Género</string>
     <string name="formPass">Contraseña</string>
     <string name="formConf">Confirmar contrasena</string>
     <string name="btnConf">Confirmar</string>
@@ -36,10 +37,29 @@
     <string name="desc">Descripción</string>
     <string name="editorial">Editorial</string>
 
+    <!--Datos usuario -->
+    <string name="nameData">Nombre:</string>
+    <string name="lastnameData">Apellido:</string>
+    <string name="emailData">Correo:</string>
+    <string name="numberData">Número:</string>
+    <string name="genderData">Género:</string>
+    <string name="messageSettings">Para cambiar cualquiera de los datos anteriores por favor visita \nuna biblioteca</string>
+
+    <!--Cambiar contra-->
+    <string name="changePass">Cambiar contraseña</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <!--errores-->
+    <string name="formError1">Campo requerido, no puede ir vacío</string>
+
+    <!--arrays-->
+    <string-array name="generos">
+        <item>Masculino</item>
+        <item>Femenino</item>
+    </string-array>
 </resources>

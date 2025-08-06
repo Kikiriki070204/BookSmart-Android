@@ -13,4 +13,5 @@
     <color name="gray">#49454F</color>
     <color name="another">#F3EDF7</color>
     <color name="fill">#A09590</color>
+    <color name="error">#F44336</color>
 </resources>
