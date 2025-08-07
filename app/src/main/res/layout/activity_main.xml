@@ -19,42 +19,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="200dp"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegistrar"
-        android:layout_width="200dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="100dp"
-        android:fontFamily="@font/league_spartan_semibold"
-        android:text="@string/btnRegister"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon"
-        app:cornerRadius="10dp"
-        app:strokeWidth="2dp"
-        app:strokeColor="@color/Btn1"
-        app:backgroundTint="@color/Btn1"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegistrar"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/league_spartan_semibold"
+            android:padding="10dp"
+            android:text="@string/btnRegister"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:backgroundTint="@color/Btn1"
+            app:cornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:strokeColor="@color/Btn1"
+            app:strokeWidth="2dp" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/league_spartan_semibold"
-        android:text="@string/btnLogin"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegistrar"
-        app:cornerRadius="10dp"
-        app:strokeWidth="2dp"
-        app:strokeColor="@color/PopUps"
-        app:backgroundTint="@color/PopUps"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:fontFamily="@font/league_spartan_semibold"
+            android:text="@string/btnLogin"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:cornerRadius="10dp"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/PopUps"
+            app:backgroundTint="@color/PopUps"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="40dp"/>
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

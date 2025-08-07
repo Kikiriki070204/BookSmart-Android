@@ -11,7 +11,7 @@
     <string name="formEmail">Correo electrónico</string>
     <string name="formGender">Género</string>
     <string name="formPass">Contraseña</string>
-    <string name="formConf">Confirmar contrasena</string>
+    <string name="formConf">Confirmar contraseña</string>
     <string name="btnConf">Confirmar</string>
     <string name="welcome">¡Siempre es bueno tenerte de \n vuelta!</string>
     <string name="regConf">Confirma tu correo \n electrónico</string>

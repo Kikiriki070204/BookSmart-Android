@@ -9,7 +9,7 @@ public class auth_request {
     public static Retrofit getRetrofit(){
         if(retrofit==null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://127.0.0.1:3333/")
+                    .baseUrl("http://192.168.1.127:3333/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

@@ -11,9 +11,9 @@
     <ScrollView
         android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="20dp">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_alignParentTop="true">
 
         <RelativeLayout
             android:id="@+id/formContent"
@@ -200,7 +200,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Género"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         app:boxStrokeColor="#26453726"
                         app:boxBackgroundColor="@color/white"
                         app:hintTextColor="#26453726"
@@ -297,7 +297,7 @@
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:layout_below="@id/fieldsContainer"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/button_shape_3"
                 app:backgroundTint="@color/Btn2"
@@ -307,6 +307,10 @@
                 android:text="@string/btnConf"
                 android:fontFamily="@font/league_spartan_semibold"
                 />
+            <LinearLayout
+                android:layout_below="@id/btnRegistrar"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
         </RelativeLayout>
     </ScrollView>
 

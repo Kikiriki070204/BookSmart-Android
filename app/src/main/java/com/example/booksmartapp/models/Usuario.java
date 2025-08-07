@@ -10,6 +10,7 @@ public class Usuario {
     private String genero;
     private boolean active;
     private int rol_id;
+    private String token;
     public Usuario(int id, String nombre, String apellido, String correo, String celular, String contrasena, boolean active, int rol_id, String genero) {
         this.id = id;
         this.nombre = nombre;
@@ -89,5 +90,13 @@ public class Usuario {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

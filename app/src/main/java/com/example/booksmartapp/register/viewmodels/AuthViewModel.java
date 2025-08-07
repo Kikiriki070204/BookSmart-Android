@@ -1,32 +1,23 @@
 package com.example.booksmartapp.register.viewmodels;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.booksmartapp.models.Usuario;
-import com.example.booksmartapp.models.RegisterRequest;
-import com.example.booksmartapp.register.repository.RegisterRepository;
+import com.example.booksmartapp.models.requests.RegisterRequest;
+import com.example.booksmartapp.models.requests.VerifyRequest;
+import com.example.booksmartapp.register.repository.AuthRepository;
+import com.example.booksmartapp.responses.ApiResponse;
+import com.example.booksmartapp.responses.UsuarioResponse;
 
 public class AuthViewModel extends ViewModel {
-    private MutableLiveData<Usuario> registerResult = new MutableLiveData<>();
-    private RegisterRepository registerRepository;
+    private AuthRepository authRepository = new AuthRepository();
 
-    public LiveData<Usuario> getRegister(RegisterRequest request) {
-
-        if (registerRepository == null) {
-            registerRepository = new RegisterRepository();
-        }
-        return registerRepository.register(request);
-
+    public LiveData<UsuarioResponse> getRegister(RegisterRequest request) {
+        return authRepository.register(request);
     }
 
-    private void Register(RegisterRequest request)
+    public LiveData<ApiResponse<Void>> getVerify(int id, VerifyRequest verifyRequest)
     {
-        if(registerRepository==null)
-        {
-            registerRepository=new RegisterRepository();
-        }
-        registerResult = registerRepository.register(request);
+     return authRepository.verify(id, verifyRequest);
     }
 }

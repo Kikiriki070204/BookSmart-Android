@@ -7,35 +7,33 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.booksmartapp.BottomNavigationActivity;
 import com.example.booksmartapp.R;
-import com.example.booksmartapp.models.RegisterRequest;
+import com.example.booksmartapp.models.requests.RegisterRequest;
+import com.example.booksmartapp.models.SessionManager;
 import com.example.booksmartapp.register.viewmodels.AuthViewModel;
-import com.example.booksmartapp.retrofit.auth_request;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
     private TextInputEditText editNombre, editApellido, editEmail, editPassword, editConfPassword, editCelular;
-
     private TextView errorNombre, errorApellido, errorCelular, errorEmail, errorPassword, errorConfPassword;
-
     private AutoCompleteTextView selectGender;
-
     private AppCompatButton btnRegistrar;
+    private ScrollView scrollContainer;
+
     private boolean isDropdownOpen = false;
     private boolean isNameValid = false;
     private boolean isApellidoValid = false;
@@ -43,15 +41,12 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isCorreoValid = false;
     private boolean isPasswordValid = false;
     private boolean isConfPasswordValid = false;
-    private boolean isFormValid;
+    private boolean isGenderSelected = false;
 
     public retrofit2.Retrofit auth;
-    void setAuth() {
-        auth = auth_request.getRetrofit();
-    }
 
     private Pattern namePattern = Pattern.compile("^[A-ZÁÉÍÓÚÑ][a-záéíóúñA-ZÁÉÍÓÚÑ ]{1,49}$");
-    private Pattern passwordPattern = Pattern.compile("^(?=.*[A-Z])(?=.*)(?=.*[@$!%*#?&])[A-Za-z@$!%*#?&]{8,}$");
+    private Pattern passwordPattern = Pattern.compile("^((?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])).{8,}$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,30 +58,33 @@ public class RegisterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         findViews();
         setGeneroValues();
         setValidaciones();
         setBtnRegistrar();
+
+        updateButtonState();
     }
 
-    private void findViews()
-    {
-     editNombre = findViewById(R.id.editNombre);
-     editApellido = findViewById(R.id.editApellido);
-     editEmail = findViewById(R.id.editEmail);
-     editPassword = findViewById(R.id.editPassword);
-     editConfPassword = findViewById(R.id.editConfPassword);
-     editCelular = findViewById(R.id.editCelular);
-     btnRegistrar = findViewById(R.id.btnRegistrar);
+    private void findViews() {
+        editNombre = findViewById(R.id.editNombre);
+        editApellido = findViewById(R.id.editApellido);
+        editEmail = findViewById(R.id.editEmail);
+        editPassword = findViewById(R.id.editPassword);
+        editConfPassword = findViewById(R.id.editConfPassword);
+        editCelular = findViewById(R.id.editCelular);
+        btnRegistrar = findViewById(R.id.btnRegistrar);
 
-     errorNombre = findViewById(R.id.errorNombre);
-     errorApellido = findViewById(R.id.errorApellido);
-     errorCelular = findViewById(R.id.errorCelular);
-     errorEmail = findViewById(R.id.errorEmail);
-     errorPassword = findViewById(R.id.errorPassword);
-     errorConfPassword = findViewById(R.id.errorConfPassword);
+        errorNombre = findViewById(R.id.errorNombre);
+        errorApellido = findViewById(R.id.errorApellido);
+        errorCelular = findViewById(R.id.errorCelular);
+        errorEmail = findViewById(R.id.errorEmail);
+        errorPassword = findViewById(R.id.errorPassword);
+        errorConfPassword = findViewById(R.id.errorConfPassword);
 
-     selectGender = findViewById(R.id.selectGender);
+        selectGender = findViewById(R.id.selectGender);
+        scrollContainer = findViewById(R.id.scrollContainer);
     }
 
     private void setGeneroValues() {
@@ -107,14 +105,29 @@ public class RegisterActivity extends AppCompatActivity {
             isDropdownOpen = !isDropdownOpen;
         });
 
-
         selectGender.setOnItemClickListener((parent, view, position, id) -> {
             isDropdownOpen = false;
+            isGenderSelected = !selectGender.getText().toString().trim().isEmpty();
+            updateButtonState(); // Actualizar estado del botón
+        });
+
+        // Validar cambios en el texto del género
+        selectGender.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                isGenderSelected = !s.toString().trim().isEmpty();
+                updateButtonState();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
         });
     }
 
-    private void setValidaciones()
-    {
+    private void setValidaciones() {
         editNameValidation();
         editApellidoValidation();
         editCelularValidation();
@@ -122,6 +135,25 @@ public class RegisterActivity extends AppCompatActivity {
         editPasswordValidation();
         editConfPasswordValidation();
     }
+
+    /**
+     * Método central para actualizar el estado del botón de registro
+     * Habilita el botón solo si todas las validaciones son correctas
+     */
+    private void updateButtonState() {
+        boolean isFormValid = isNameValid &&
+                isApellidoValid &&
+                isCelularValid &&
+                isCorreoValid &&
+                isPasswordValid &&
+                isConfPasswordValid &&
+                isGenderSelected;
+
+        btnRegistrar.setEnabled(isFormValid);
+
+        btnRegistrar.setAlpha(isFormValid ? 1.0f : 0.5f);
+    }
+
     private void editNameValidation() {
         editNombre.addTextChangedListener(new TextWatcher() {
             @Override
@@ -140,15 +172,15 @@ public class RegisterActivity extends AppCompatActivity {
                     errorNombre.setVisibility(View.GONE);
                     isNameValid = true;
                 }
-                validateForm();
+                updateButtonState(); // Actualizar estado del botón
             }
 
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
         });
     }
-    private void editApellidoValidation()
-    {
+
+    private void editApellidoValidation() {
         editApellido.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -166,7 +198,7 @@ public class RegisterActivity extends AppCompatActivity {
                     errorApellido.setVisibility(View.GONE);
                     isApellidoValid = true;
                 }
-                validateForm();
+                updateButtonState(); // Actualizar estado del botón
             }
 
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -174,10 +206,10 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void editCelularValidation()
-    {
+    private void editCelularValidation() {
         editCelular.addTextChangedListener(new TextWatcher() {
             Pattern phonePattern = Pattern.compile("^\\d{10}$");
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
@@ -192,19 +224,20 @@ public class RegisterActivity extends AppCompatActivity {
                     isCelularValid = false;
                 } else {
                     errorCelular.setVisibility(View.GONE);
-                    isCelularValid = false;
+                    isCelularValid = true;
                 }
-                validateForm();
+                updateButtonState(); // Actualizar estado del botón
             }
 
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void afterTextChanged(Editable s) {}
         });
     }
-    private void editCorreoValidation()
-    {
+
+    private void editCorreoValidation() {
         editEmail.addTextChangedListener(new TextWatcher() {
-            Pattern emailPattern = Pattern.compile("^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
+            Pattern emailPattern = Pattern.compile("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$");
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
@@ -221,7 +254,7 @@ public class RegisterActivity extends AppCompatActivity {
                     errorEmail.setVisibility(View.GONE);
                     isCorreoValid = true;
                 }
-                validateForm();
+                updateButtonState(); // Actualizar estado del botón
             }
 
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -229,17 +262,10 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void editPasswordValidation()
-    {
+    private void editPasswordValidation() {
         editPassword.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
                 String input = s.toString().trim();
 
                 if (input.isEmpty()) {
@@ -252,93 +278,107 @@ public class RegisterActivity extends AppCompatActivity {
                     isPasswordValid = false;
                 } else {
                     errorPassword.setVisibility(View.GONE);
-                    isPasswordValid = false;
+                    isPasswordValid = true; // CORREGIDO: estaba en false
                 }
-                validateForm();
+
+                // Re-validar confirmación de contraseña si ya tiene texto
+                if (!editConfPassword.getText().toString().trim().isEmpty()) {
+                    validatePasswordConfirmation();
+                }
+                updateButtonState(); // Actualizar estado del botón
             }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            @Override public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
+            @Override public void afterTextChanged(Editable editable) {}
         });
     }
 
-    private void editConfPasswordValidation()
-    {
+    private void editConfPasswordValidation() {
         editConfPassword.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void afterTextChanged(Editable editable) {
-
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                validatePasswordConfirmation();
+                updateButtonState(); // Actualizar estado del botón
             }
 
+            @Override public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {}
+            @Override public void afterTextChanged(Editable editable) {}
+        });
+    }
+
+    /**
+     * Método auxiliar para validar la confirmación de contraseña
+     */
+    private void validatePasswordConfirmation() {
+        String input = editConfPassword.getText().toString().trim();
+        String password = editPassword.getText().toString().trim();
+
+        if (input.isEmpty()) {
+            errorConfPassword.setVisibility(View.VISIBLE);
+            errorConfPassword.setText(R.string.formError1);
+            isConfPasswordValid = false;
+        } else if (!passwordPattern.matcher(input).matches()) {
+            errorConfPassword.setVisibility(View.VISIBLE);
+            errorConfPassword.setText("La contraseña debe contar con mínimo 8 caracteres, al menos una mayúscula, un número y un carácter especial");
+            isConfPasswordValid = false;
+        } else if (!input.equals(password)) {
+            errorConfPassword.setVisibility(View.VISIBLE);
+            errorConfPassword.setText("La contraseña no coincide");
+            isConfPasswordValid = false;
+        } else {
+            errorConfPassword.setVisibility(View.GONE);
+            isConfPasswordValid = true;
+        }
+    }
+
+    private void setBtnRegistrar() {
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
-                String input = s.toString().trim();
+            public void onClick(View view) {
 
-                if (input.isEmpty()) {
-                    errorConfPassword.setVisibility(View.VISIBLE);
-                    errorConfPassword.setText(R.string.formError1);
-                    isConfPasswordValid = false;
-                } else if (!passwordPattern.matcher(input).matches()) {
-                    errorConfPassword.setVisibility(View.VISIBLE);
-                    errorConfPassword.setText("La contraseña debe contar con mínimo 8 caracteres, al menos una mayúscula, un número y un carácter especial");
-                    isConfPasswordValid = false;
-                } else if (!input.equals(editConfPassword.getText().toString().trim())){
-                    errorConfPassword.setVisibility(View.VISIBLE);
-                    errorConfPassword.setText("La contraseña no coincide");
-                    isConfPasswordValid = true;
+                if (!isFormCompleteAndValid()) {
+                    Toast.makeText(RegisterActivity.this, "Por favor, completa correctamente todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                else
-                {
-                    errorEmail.setVisibility(View.GONE);
-                }
-                validateForm();
-            }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                RegisterRequest request = new RegisterRequest(
+                        editNombre.getText().toString().trim(),
+                        editApellido.getText().toString().trim(),
+                        editEmail.getText().toString().trim(),
+                        editCelular.getText().toString().trim(),
+                        editPassword.getText().toString(),
+                        selectGender.getText().toString().trim()
+                );
 
+                ViewModelProvider provider = new ViewModelProvider(RegisterActivity.this);
+                AuthViewModel registerViewModel = provider.get(AuthViewModel.class);
+                registerViewModel.getRegister(request).observe(RegisterActivity.this, usuarioResponse -> {
+                    if (usuarioResponse != null) {
+                        int id = usuarioResponse.getUsuario_id();
+                        SessionManager.setTemporalId(id);
+                        startActivity(new Intent(RegisterActivity.this, VerifyActivity.class));
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
 
-    private void validateForm() {
-        isFormValid = isNameValid && isApellidoValid && isCelularValid &&
-                isCorreoValid && isPasswordValid && isConfPasswordValid;
+    private boolean isFormCompleteAndValid() {
+        return isNameValid &&
+                isApellidoValid &&
+                isCelularValid &&
+                isCorreoValid &&
+                isPasswordValid &&
+                isConfPasswordValid &&
+                isGenderSelected &&
+                !editNombre.getText().toString().trim().isEmpty() &&
+                !editApellido.getText().toString().trim().isEmpty() &&
+                !editEmail.getText().toString().trim().isEmpty() &&
+                !editCelular.getText().toString().trim().isEmpty() &&
+                !editPassword.getText().toString().trim().isEmpty() &&
+                !editConfPassword.getText().toString().trim().isEmpty() &&
+                !selectGender.getText().toString().trim().isEmpty();
     }
-    private void setBtnRegistrar()
-    {
-        RegisterRequest request =  new RegisterRequest(
-                editNombre.getText().toString().trim(),
-                editApellido.getText().toString().trim(),
-                editEmail.getText().toString().trim(),
-                editPassword.getText().toString(),
-                editCelular.getText().toString().trim(),
-                selectGender.getText().toString().trim()
-
-        );
-        if(!isFormValid)
-        {
-            btnRegistrar.setEnabled(isFormValid);
-            btnRegistrar.setAlpha(isFormValid ? 1f : 0.5f);
-        }
-        else{
-            btnRegistrar.setEnabled(isFormValid);
-            btnRegistrar.setAlpha(1f);
-            btnRegistrar.setOnClickListener(onClick -> {
-                Intent intent = new Intent(this, BottomNavigationActivity.class);
-                startActivity(intent);
-            });
-        }
-        /*
-        btnRegistrar.setOnClickListener(onClick -> {
-            ViewModelProvider provider = new ViewModelProvider(this);
-            AuthViewModel registerViewModel = provider.get(AuthViewModel.class);
-            registerViewModel.getRegister(request);
-        });
-         */
-    }
-
 }

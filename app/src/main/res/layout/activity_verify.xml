@@ -38,22 +38,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtWelcome"
-
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:layout_marginRight="50dp"
         android:layout_marginLeft="50dp"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editCode"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
+            android:maxLength="19"
             android:layout_height="80dp"
             android:background="@drawable/edit_text_shape"/>
+        <TextView
+            android:id="@+id/errorCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="12sp"
+            android:fontFamily="@font/league_spartan"
+            android:visibility="gone"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/error"/>
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnValidar"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_below="@id/fieldsContainer"

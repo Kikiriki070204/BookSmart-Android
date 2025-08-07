@@ -1,15 +1,28 @@
 package com.example.booksmartapp.register.routes;
 
-import com.example.booksmartapp.models.RegisterRequest;
+import com.example.booksmartapp.models.Usuario;
+import com.example.booksmartapp.models.requests.LoginRequest;
+import com.example.booksmartapp.models.requests.RegisterRequest;
+import com.example.booksmartapp.models.requests.VerifyRequest;
 import com.example.booksmartapp.responses.ApiResponse;
 import com.example.booksmartapp.responses.UsuarioResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface AuthRoutes {
-    @POST("auth/register")
+    @POST("auth/usuario/register")
     Call<ApiResponse<UsuarioResponse>> register(@Body RegisterRequest request);
+
+
+    @POST("auth/verifyemail/{id}")
+    Call<ApiResponse<Void>> verifyEmail( @Path("id") int i, @Body VerifyRequest request);
+
+
+    @POST("auth/login")
+    Call<ApiResponse<Usuario>> login(@Body LoginRequest request);
+
 
 }

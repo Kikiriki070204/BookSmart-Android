@@ -4,6 +4,25 @@ public class UsuarioResponse {
     private int usuario_id;
     private String nombre;
     private String correo;
+    private boolean email_sent;
+    private String email_token;
+
+    public boolean isEmail_sent() {
+        return email_sent;
+    }
+
+    public void setEmail_sent(boolean email_sent) {
+        this.email_sent = email_sent;
+    }
+
+    public String getEmail_token() {
+        return email_token;
+    }
+
+    public void setEmail_token(String email_token) {
+        this.email_token = email_token;
+    }
+
 
     public int getUsuario_id() { return usuario_id; }
     public void setUsuario_id(int usuario_id) { this.usuario_id = usuario_id; }
