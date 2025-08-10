@@ -5,7 +5,7 @@
         android:icon="@drawable/home_alt"
         android:title=""/>
     <item
-        android:id="@+id/nav_profile"
+        android:id="@+id/nav_search"
         android:icon="@drawable/book"
         android:title=""/>
 </menu>

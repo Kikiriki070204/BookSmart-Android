@@ -3,8 +3,42 @@ package com.example.booksmartapp.models;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.List;
+
 public class SessionManager {
     private static SessionManager instance;
+
+    private List<Biblioteca> bibliotecas;
+
+    private int bibliotecaSeleccionadaId;
+    private Usuario.UsuarioLogin usuario;
+    private String token;
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    private String contrasena;
+
+    public List<Biblioteca> getBibliotecas() {
+        return bibliotecas;
+    }
+
+    public void setBibliotecas(List<Biblioteca> bibliotecas) {
+        this.bibliotecas = bibliotecas;
+    }
+
+    public int getBibliotecaSeleccionadaId() {
+        return bibliotecaSeleccionadaId;
+    }
+
+    public void setBibliotecaSeleccionadaId(int bibliotecaSeleccionadaId) {
+        this.bibliotecaSeleccionadaId = bibliotecaSeleccionadaId;
+    }
 
     public Usuario.UsuarioLogin getUsuario() {
         return usuario;
@@ -14,18 +48,7 @@ public class SessionManager {
         this.usuario = usuario;
     }
 
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    private Usuario.UsuarioLogin usuario;
-    private String token;
-
-    private SessionManager() {
+    public SessionManager() {
         // Constructor privado
     }
 

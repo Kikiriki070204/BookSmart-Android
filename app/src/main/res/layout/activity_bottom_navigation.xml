@@ -17,7 +17,7 @@
 
         <!--Dropdown manual-->
         <FrameLayout
-            android:id="@+id/dropdownBibliotecas"
+            android:id="@+id/Bibliotecas"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
@@ -48,6 +48,7 @@
                     android:background="@android:color/transparent">
 
                     <AutoCompleteTextView
+                        android:id="@+id/dropdownBibliotecas"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Biblioteca"
@@ -60,6 +61,7 @@
             </LinearLayout>
         </FrameLayout>
         <fragment
+            android:id="@+id/nav_host_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             class="androidx.navigation.fragment.NavHostFragment"

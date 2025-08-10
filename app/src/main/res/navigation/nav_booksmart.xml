@@ -11,4 +11,8 @@
         android:id="@+id/detalleFragment"
         android:name="com.example.booksmartapp.detail.PrestamoDetalleFragment"
         android:label="Detalle"/>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.booksmartapp.search.SearchFragment"
+        android:label="Buscar" />
 </navigation>

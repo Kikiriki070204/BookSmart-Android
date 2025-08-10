@@ -1,5 +1,6 @@
 package com.example.booksmartapp.select;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,8 +14,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booksmartapp.BottomNavigationActivity;
 import com.example.booksmartapp.R;
 import com.example.booksmartapp.models.Biblioteca;
+import com.example.booksmartapp.models.SessionManager;
 import com.example.booksmartapp.register.VerifyActivity;
 import com.example.booksmartapp.register.viewmodels.AuthViewModel;
 import com.example.booksmartapp.register.viewmodels.BibliotecaViewModelFactory;
@@ -62,7 +65,8 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
             adapter.bibliotecasList.clear();
 
             if (bibliotecas != null && bibliotecas.getData() != null && bibliotecas.getData().getBibliotecas() != null) {
-
+                SessionManager sessionManager =  SessionManager.getInstance();
+                sessionManager.setBibliotecas(bibliotecas.getData().getBibliotecas());
                 adapter.bibliotecasList.addAll(bibliotecas.getData().getBibliotecas());
             }
             adapter.notifyDataSetChanged();
@@ -72,6 +76,9 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
 
     @Override
     public void OnClick(Biblioteca biblioteca) {
+        SessionManager sessionManager = SessionManager.getInstance();
+        sessionManager.setBibliotecaSeleccionadaId(biblioteca.getId());
+        Intent intent = new Intent(this, BottomNavigationActivity.class);
 
     }
 }

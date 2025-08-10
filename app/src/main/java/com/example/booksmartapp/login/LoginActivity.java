@@ -175,7 +175,7 @@ public class LoginActivity extends AppCompatActivity {
                         SessionManager sessionManager = SessionManager.getInstance();
                         sessionManager.setUsuario(loginResponseApiResponse.getData().getUser());
                         sessionManager.saveToken(LoginActivity.this, loginResponseApiResponse.getData().getToken());
-
+                        sessionManager.setContrasena(editPassword.getText().toString().trim());
                         Intent intent = new Intent(LoginActivity.this, SelectLibraryActivity.class);
                         startActivity(intent);
                     } else {

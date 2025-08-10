@@ -5,6 +5,8 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.booksmartapp.models.Bibliotecas;
+import com.example.booksmartapp.models.Prestamo;
+import com.example.booksmartapp.models.Prestamos;
 import com.example.booksmartapp.models.SessionManager;
 import com.example.booksmartapp.register.routes.AuthRoutes;
 import com.example.booksmartapp.responses.ApiResponse;
@@ -18,6 +20,7 @@ import com.example.booksmartapp.select.routes.BibliotecaRoutes;
 import com.google.gson.Gson;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -79,4 +82,24 @@ public class BibliotecasRepository {
         return result;
     }
 
+
+    public MutableLiveData<ApiResponse<Prestamos>> getPrestamos(){
+        setRetrofit();
+        BibliotecaRoutes prestamoRoute = retrofit.create(BibliotecaRoutes.class);
+        MutableLiveData<ApiResponse<Prestamos>> result = new MutableLiveData<>();
+
+        prestamoRoute.getPrestamosByUsuario().enqueue(new Callback<ApiResponse<Prestamos>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Prestamos>> call, Response<ApiResponse<Prestamos>> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Prestamos>> call, Throwable t) {
+
+            }
+        });
+
+        return null;
+    }
 }
