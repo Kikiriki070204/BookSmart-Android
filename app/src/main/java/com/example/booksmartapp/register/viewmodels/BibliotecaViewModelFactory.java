@@ -16,7 +16,7 @@ public class BibliotecaViewModelFactory implements ViewModelProvider.Factory {
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(BibliotecaViewModelFactory.class)) {
+        if (modelClass.isAssignableFrom(BibliotecasViewModel.class)) {
             return (T) new BibliotecasViewModel(context);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");

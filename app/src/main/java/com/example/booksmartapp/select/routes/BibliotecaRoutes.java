@@ -5,8 +5,9 @@ import com.example.booksmartapp.responses.ApiResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface BibliotecaRoutes {
-    @GET("bibliotecas")
-    Call<ApiResponse<Bibliotecas>> getBibliotecas();
+    @GET("bibliotecas/usuario/{id}")
+    Call<ApiResponse<Bibliotecas>> getBibliotecas(@Path("id") int i);
 }

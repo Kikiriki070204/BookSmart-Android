@@ -45,10 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         findViews();
-        //setValidations();
-        HomePrueba();
-        //setBtnLogin();
-        //updateButtonState();
+        setValidations();
+        //HomePrueba();
+        setBtnLogin();
+        updateButtonState();
     }
 
     private void findViews()

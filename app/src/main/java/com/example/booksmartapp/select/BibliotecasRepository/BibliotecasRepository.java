@@ -24,12 +24,14 @@ import retrofit2.Retrofit;
 public class BibliotecasRepository {
     private Retrofit retrofit;
     private String token;
+    private int id;
     private SessionManager sessionManager;
 
 
     public BibliotecasRepository(Context context) {
         sessionManager = SessionManager.getInstance();
         token = sessionManager.getToken(context);
+        id = sessionManager.getUsuario().getId();
         setRetrofit();
     }
 
@@ -42,7 +44,7 @@ public class BibliotecasRepository {
         BibliotecaRoutes bibliotecaRoutes = retrofit.create(BibliotecaRoutes.class);
         MutableLiveData<ApiResponse<Bibliotecas>> result = new MutableLiveData<>();
 
-        bibliotecaRoutes.getBibliotecas().enqueue(new retrofit2.Callback<>() {
+        bibliotecaRoutes.getBibliotecas(id).enqueue(new retrofit2.Callback<>() {
             @Override
             public void onResponse(Call<ApiResponse<Bibliotecas>> call, Response<ApiResponse<Bibliotecas>> response) {
                 ApiResponse<Bibliotecas> apiResponse = response.body();

@@ -16,7 +16,7 @@ public class business_request {
                     .build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.158:3333/")
+                    .baseUrl("http://192.168.1.8:3334/api/business/")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

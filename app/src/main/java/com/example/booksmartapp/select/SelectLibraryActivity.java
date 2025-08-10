@@ -1,6 +1,8 @@
 package com.example.booksmartapp.select;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 public class SelectLibraryActivity extends AppCompatActivity implements BibliotecaListener {
 
     private RecyclerView bibliotecasRecycler;
+    private TextView noBibliotecasText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +41,12 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
         });
         findViews();
         setUpRecyclerView();
-
-
     }
 
     private void findViews()
     {
-     bibliotecasRecycler = findViewById(R.id.bibliotecasRecycler);
+     bibliotecasRecycler = findViewById(R.id.bibliotecasRecyclerSelect);
+     noBibliotecasText = findViewById(R.id.no_bibliotecas);
     }
 
     private void setUpRecyclerView() {
@@ -57,15 +59,13 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
         bibliotecasRecycler.setHasFixedSize(true);
 
         viewModel.getBibliotecas().observe(this, bibliotecas -> {
-           if(bibliotecas != null)
-           {
-               adapter.bibliotecasList.clear();
-               adapter.bibliotecasList.addAll(bibliotecas.getData().getBibliotecas());
-           }
-           else
-           {
-               adapter.bibliotecasList.clear();
-           }
+            adapter.bibliotecasList.clear();
+
+            if (bibliotecas != null && bibliotecas.getData() != null && bibliotecas.getData().getBibliotecas() != null) {
+
+                adapter.bibliotecasList.addAll(bibliotecas.getData().getBibliotecas());
+            }
+            adapter.notifyDataSetChanged();
         });
 
     }
