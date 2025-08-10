@@ -9,15 +9,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import com.example.booksmartapp.models.Usuario;
 import com.example.booksmartapp.models.requests.LoginRequest;
 import com.example.booksmartapp.models.requests.RegisterRequest;
 import com.example.booksmartapp.models.requests.VerifyRequest;
 import com.example.booksmartapp.register.routes.AuthRoutes;
 import com.example.booksmartapp.responses.ApiResponse;
+import com.example.booksmartapp.responses.ErrorResponse;
+import com.example.booksmartapp.responses.LoginResponse;
 import com.example.booksmartapp.responses.UsuarioResponse;
+import com.example.booksmartapp.responses.VerifyResponse;
 import com.example.booksmartapp.retrofit.auth_request;
 import com.google.gson.Gson;
+
+import java.io.IOException;
 
 public class AuthRepository {
     public Retrofit retrofit;
@@ -26,23 +30,21 @@ public class AuthRepository {
         retrofit = auth_request.getRetrofit();
     }
 
-    public MutableLiveData<UsuarioResponse> register(RegisterRequest request) {
+
+    public MutableLiveData<ApiResponse<UsuarioResponse>> register(RegisterRequest request) {
         setRetrofit();
         AuthRoutes authRoute = retrofit.create(AuthRoutes.class);
-        MutableLiveData<UsuarioResponse> result = new MutableLiveData<>();
+        MutableLiveData<ApiResponse<UsuarioResponse>> result = new MutableLiveData<>();
 
         authRoute.register(request).enqueue(new Callback<>() {
 
             @Override
             public void onResponse(Call<ApiResponse<UsuarioResponse>> call, Response<ApiResponse<UsuarioResponse>> response) {
-                Log.d("API", "Código: " + response.code());
-                Log.d("API", "Body completo: " + new Gson().toJson(response.body()));
-                Log.d("API", "Data: " + new Gson().toJson(response.body().getData()));
+                ApiResponse<UsuarioResponse> apiResponse = response.body();
                 if (response.isSuccessful() && response.body() != null) {
-                    UsuarioResponse usuario = response.body().getData();
-                    result.setValue(usuario);
+                    result.setValue(apiResponse);
                 } else {
-                    result.setValue(null);
+                    result.setValue(apiResponse);
                 }
             }
 
@@ -55,37 +57,97 @@ public class AuthRepository {
         return result;
     }
 
-    public MutableLiveData<ApiResponse<Void>> verify(int id, VerifyRequest request) {
+    public MutableLiveData<ApiResponse<VerifyResponse>> verifyEmail(int id, VerifyRequest request) {
         setRetrofit();
         AuthRoutes authRoute = retrofit.create(AuthRoutes.class);
-        MutableLiveData<ApiResponse<Void>> result = new MutableLiveData<>();
-        ApiResponse<Void> apiResponse = new ApiResponse<>();
+        MutableLiveData<ApiResponse<VerifyResponse>> result = new MutableLiveData<>();
 
-        authRoute.verifyEmail(id,request).enqueue(new Callback<ApiResponse<Void>>() {
-
+        authRoute.verifyEmail(id, request).enqueue(new Callback<>() {
             @Override
-            public void onResponse(Call<ApiResponse<Void>> call, Response<ApiResponse<Void>> response) {
+            public void onResponse(Call<ApiResponse<VerifyResponse>> call, Response<ApiResponse<VerifyResponse>> response) {
+                ApiResponse<VerifyResponse> apiResponse = response.body();
                 if (response.isSuccessful() && response.body() != null) {
-                    apiResponse.setData(null);
-                    apiResponse.setMsg(response.body().getMsg());
                     result.setValue(apiResponse);
                 } else {
-                    ApiResponse<Void> apiResponse = new ApiResponse<>();
-                    apiResponse.setMsg(response.message());
                     result.setValue(apiResponse);
                 }
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<Void>> call, Throwable t) {
-                ApiResponse<Void> apiResponse = new ApiResponse<>();
-                apiResponse.setMsg(t.getMessage());
-                apiResponse.setData(null);
-                result.setValue(apiResponse);
+            public void onFailure(Call<ApiResponse<VerifyResponse>> call, Throwable t) {
+                result.setValue(null);
+            }
+        });
+        return result;
+    }
+
+    public MutableLiveData<ApiResponse<LoginResponse>> login(LoginRequest request) {
+        setRetrofit();
+        AuthRoutes authRoute = retrofit.create(AuthRoutes.class);
+        MutableLiveData<ApiResponse<LoginResponse>> result = new MutableLiveData<>();
+
+        authRoute.login(request).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ApiResponse<LoginResponse>> call, Response<ApiResponse<LoginResponse>> response) {
+                ApiResponse<LoginResponse> apiResponse = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    result.setValue(apiResponse);
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            Gson gson = new Gson();
+                            ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+
+                            ApiResponse<LoginResponse> errorApiResponse = new ApiResponse<>();
+                            errorApiResponse.setStatus(errorResponse.getStatus());
+                            errorApiResponse.setMsg(errorResponse.getMsg());
+                            errorApiResponse.setData(null);
+
+                            result.setValue(errorApiResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            result.setValue(null);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<LoginResponse>> call, Throwable t) {
+                result.setValue(null);
             }
         });
 
         return result;
     }
 
+  /*
+    public MutableLiveData<ApiResponse<LoginResponse>> login(LoginRequest request) {
+        setRetrofit();
+        AuthRoutes authRoute = retrofit.create(AuthRoutes.class);
+        MutableLiveData<ApiResponse<LoginResponse>> result = new MutableLiveData<>();
+        ApiResponse<LoginResponse> apiResponse = new ApiResponse<>();
+
+        authRoute.login(request).enqueue(new Callback<ApiResponse<LoginResponse>>() {
+
+            @Override
+            public void onResponse(Call<ApiResponse<LoginResponse>> call, Response<ApiResponse<LoginResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    apiResponse.setData(response.body().getData());
+                    apiResponse.setMsg(response.body().getMsg());
+                    result.setValue(apiResponse);
+                }
+                else
+                    result.setValue(null);
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<LoginResponse>> call, Throwable t) {
+                    result.setValue(null);
+            }
+        });
+
+        return result;
+    }
+     */
 }

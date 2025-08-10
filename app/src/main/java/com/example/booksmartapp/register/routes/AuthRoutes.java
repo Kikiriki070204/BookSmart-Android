@@ -5,7 +5,9 @@ import com.example.booksmartapp.models.requests.LoginRequest;
 import com.example.booksmartapp.models.requests.RegisterRequest;
 import com.example.booksmartapp.models.requests.VerifyRequest;
 import com.example.booksmartapp.responses.ApiResponse;
+import com.example.booksmartapp.responses.LoginResponse;
 import com.example.booksmartapp.responses.UsuarioResponse;
+import com.example.booksmartapp.responses.VerifyResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,11 +20,11 @@ public interface AuthRoutes {
 
 
     @POST("auth/verifyemail/{id}")
-    Call<ApiResponse<Void>> verifyEmail( @Path("id") int i, @Body VerifyRequest request);
+    Call<ApiResponse<VerifyResponse>> verifyEmail(@Path("id") int i, @Body VerifyRequest request);
 
 
     @POST("auth/login")
-    Call<ApiResponse<Usuario>> login(@Body LoginRequest request);
+    Call<ApiResponse<LoginResponse>> login(@Body LoginRequest request);
 
 
 }

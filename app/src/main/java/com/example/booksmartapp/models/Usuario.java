@@ -99,4 +99,28 @@ public class Usuario {
     public void setToken(String token) {
         this.token = token;
     }
+
+    public static class UsuarioLogin {
+        private int id;
+        private String nombre;
+        private String rol;
+        private String correo;
+        private int bibliotecaId;
+
+        public UsuarioLogin(int id, String nombre, String rol, String correo, int bibliotecaId) {
+            this.id = id;
+            this.nombre = nombre;
+            this.rol = rol;
+            this.correo = correo;
+            this.bibliotecaId = bibliotecaId;
+        }
+
+        // Getters y setters
+        public int getId() { return id; }
+        public String getNombre() { return nombre; }
+        public String getRol() { return rol; }
+        public String getCorreo() { return correo; }
+        public int getBibliotecaId() { return bibliotecaId; }
+    }
 }
+

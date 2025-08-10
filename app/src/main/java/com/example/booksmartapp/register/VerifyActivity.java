@@ -46,8 +46,7 @@ public class VerifyActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        temporalId = SessionManager.getUser_id();
+        temporalId = getIntent().getIntExtra("user_id", 0);
         findViews();
         editCodeValidation();
         setBtnValidar();
@@ -111,27 +110,25 @@ public class VerifyActivity extends AppCompatActivity {
         btnValidar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                VerifyRequest request = new VerifyRequest(
-                        editCode.getText().toString().trim()
-                );
-
                 if (!isFormCompleteAndValid()) {
                     Toast.makeText(VerifyActivity.this, "Por favor, completa correctamente todos los campos", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                ViewModelProvider provider = new ViewModelProvider(VerifyActivity.this);
-                AuthViewModel verifyViewModel = provider.get(AuthViewModel.class);
-                verifyViewModel.getVerify(temporalId,request).observe(VerifyActivity.this, apiResponse -> {
-                    if(apiResponse != null)
-                    {
-                        startActivity(new Intent(VerifyActivity.this, MessageActivity.class));
-                    }
-                    else
-                    {
-                        Toast.makeText(VerifyActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
-                    }
-                } );
 
+                VerifyRequest request = new VerifyRequest(
+                        editCode.getText().toString().trim()
+                );
+
+                ViewModelProvider provider = new ViewModelProvider(VerifyActivity.this);
+                AuthViewModel verifyViewModel  = provider.get(AuthViewModel.class);
+                verifyViewModel.getVerify(temporalId, request).observe(VerifyActivity.this, verifyResponseApiResponse -> {
+                    if (verifyResponseApiResponse != null) {
+                        Intent intent = new Intent(VerifyActivity.this, MessageActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(VerifyActivity.this, "Error al validar código", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/itemsBackground"
+    android:id="@+id/bibliotecaData"
     app:cardCornerRadius="10dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout
-        android:id="@+id/userData"
+        android:id="@+id/dataLinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"

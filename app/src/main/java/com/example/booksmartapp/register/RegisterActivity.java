@@ -136,10 +136,6 @@ public class RegisterActivity extends AppCompatActivity {
         editConfPasswordValidation();
     }
 
-    /**
-     * Método central para actualizar el estado del botón de registro
-     * Habilita el botón solo si todas las validaciones son correctas
-     */
     private void updateButtonState() {
         boolean isFormValid = isNameValid &&
                 isApellidoValid &&
@@ -354,9 +350,10 @@ public class RegisterActivity extends AppCompatActivity {
                 AuthViewModel registerViewModel = provider.get(AuthViewModel.class);
                 registerViewModel.getRegister(request).observe(RegisterActivity.this, usuarioResponse -> {
                     if (usuarioResponse != null) {
-                        int id = usuarioResponse.getUsuario_id();
-                        SessionManager.setTemporalId(id);
-                        startActivity(new Intent(RegisterActivity.this, VerifyActivity.class));
+                            int id = usuarioResponse.getData().getUsuario_id();
+                            Intent intent = new Intent(RegisterActivity.this, VerifyActivity.class);
+                            intent.putExtra("user_id", id);
+                            startActivity(intent);
                     } else {
                         Toast.makeText(RegisterActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
                     }

@@ -4,18 +4,23 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--QUITAR ESTO: android:usesCleartextTraffic="true"  CUANDO SE USEN LAS APIS EN LA NUBE -->
     <application
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_foreground"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BookSmartApp">
+        android:theme="@style/Theme.BookSmartApp"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".select.SelectLibraryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".datos.CambiarPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".register.VerifyActivity"
             android:exported="false" />
@@ -33,8 +38,8 @@
             android:exported="false" />
         <activity
             android:name=".register.RegisterActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".BottomNavigationActivity"
             android:exported="false" />

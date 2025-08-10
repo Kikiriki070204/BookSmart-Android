@@ -5,7 +5,30 @@ public class UsuarioResponse {
     private String nombre;
     private String correo;
     private boolean email_sent;
-    private String email_token;
+
+    public int getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(int usuario_id) {
+        this.usuario_id = usuario_id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
     public boolean isEmail_sent() {
         return email_sent;
@@ -23,14 +46,6 @@ public class UsuarioResponse {
         this.email_token = email_token;
     }
 
-
-    public int getUsuario_id() { return usuario_id; }
-    public void setUsuario_id(int usuario_id) { this.usuario_id = usuario_id; }
-
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public String getCorreo() { return correo; }
-    public void setCorreo(String correo) { this.correo = correo; }
+    private String email_token;
 
 }
