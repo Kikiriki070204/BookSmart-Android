@@ -91,25 +91,44 @@ public class BibliotecasRepository {
     }
 
 
-    public MutableLiveData<ApiResponse<Prestamos>> getPrestamos(int bibliotecaId, PrestamosRequest request) {
+    public MutableLiveData<ApiResponse<Prestamos>> getPrestamos(int bibliotecaId, int usuarioId) {
         setRetrofit();
         BibliotecaRoutes prestamoRoute = retrofit.create(BibliotecaRoutes.class);
         MutableLiveData<ApiResponse<Prestamos>> result = new MutableLiveData<>();
-        prestamoRoute.getPrestamosByBiblioteca(bibliotecaId, request).enqueue(new Callback<>() {
+        prestamoRoute.getPrestamosByBiblioteca(bibliotecaId, usuarioId).enqueue(new Callback<>() {
 
             @Override
             public void onResponse(Call<ApiResponse<Prestamos>> call, Response<ApiResponse<Prestamos>> response) {
+                ApiResponse<Prestamos> apiResponse = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    result.setValue(apiResponse);
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            Gson gson = new Gson();
+                            ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
 
+                            ApiResponse<Prestamos> errorApiResponse = new ApiResponse<>();
+                            errorApiResponse.setStatus(errorResponse.getStatus());
+                            errorApiResponse.setMsg(errorResponse.getMsg());
+                            errorApiResponse.setData(null);
+
+                            result.setValue(errorApiResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            result.setValue(null);
+                        }
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<ApiResponse<Prestamos>> call, Throwable t) {
-
+                result.setValue(null);
             }
         });
-        return null;
+        return result;
     }
-
 
     public MutableLiveData<ApiResponse<Usuario>> getUsuarioInfo()
     {

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/itemsBackground"
     app:cardCornerRadius="10dp"
+    android:id="@+id/cardPrestamo"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
@@ -24,52 +26,60 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Título del libro -->
-        <TextView
-            android:id="@+id/tituloLibro"
-            android:layout_width="wrap_content"
+        <!-- Contenedor de contenido a la derecha -->
+        <LinearLayout
+            android:id="@+id/contenidoDerecha"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/league_spartan"
-            android:textSize="20sp"
-            android:textColor="@color/Borders"
-            android:text="Libro"
             app:layout_constraintTop_toTopOf="@id/imagenLibro"
-            app:layout_constraintStart_toEndOf="@id/imagenLibro" />
+            app:layout_constraintStart_toEndOf="@id/imagenLibro"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- View verde -->
-        <View
-            android:id="@+id/dueDaysGreen"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/due_days_1"
-            app:layout_constraintTop_toBottomOf="@id/tituloLibro"
-            app:layout_constraintStart_toStartOf="@id/tituloLibro" />
+            <!-- Título del libro -->
+            <TextView
+                android:id="@+id/tituloLibro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/league_spartan"
+                android:textSize="20sp"
+                android:textColor="@color/Borders"
+                android:text="Libro" />
 
-        <!-- View gris -->
-        <View
-            android:id="@+id/dueDaysGray"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/due_days_2"
-            app:layout_constraintTop_toBottomOf="@id/tituloLibro"
-            app:layout_constraintStart_toEndOf="@id/dueDaysGreen" />
+            <TextView
+                android:id="@+id/progreso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="end"
+                android:textSize="16sp"
+                android:fontFamily="@font/league_spartan_medium"
+                android:textColor="@color/Borders"/>
 
-        <!-- TextView final -->
-        <TextView
-            android:id="@+id/progreso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textSize="16sp"
-            android:fontFamily="@font/league_spartan_medium"
-            android:textColor="@color/Borders"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/dueDaysGray"/>
+            <!-- Views de días -->
+            <LinearLayout
+                android:id="@+id/dueDaysContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <View
+                    android:id="@+id/dueDaysGreen"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/due_days_1" />
+
+                <View
+                    android:id="@+id/dueDaysGray"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:background="@drawable/due_days_2" />
+            </LinearLayout>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>

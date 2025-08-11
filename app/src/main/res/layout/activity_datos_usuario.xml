@@ -8,70 +8,21 @@
     android:background="@color/Background"
     tools:context=".datos.DatosUsuarioActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <include
         android:id="@+id/settings"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="30dp"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/avatarIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/generic_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/textContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginStart="10dp"
-            app:layout_constraintStart_toEndOf="@id/avatarIcon"
-            app:layout_constraintEnd_toStartOf="@id/menuIcon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/welcome_settings"
-                android:fontFamily="@font/league_spartan_light"
-                android:textColor="@color/Borders"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:fontFamily="@font/league_spartan"
-                android:textColor="@color/Borders"
-                android:textSize="16sp"/>
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/menuIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/background_settings"
-            android:src="@drawable/settings"
-            app:tint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_settings"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/UserData"
+        android:layout_below="@id/settings"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/settings"
         app:cardBackgroundColor="@color/CardBackground"
         android:layout_marginTop="20dp"
         android:layout_marginRight="40dp">
@@ -116,7 +67,7 @@
                             android:layout_marginStart="30dp"
                             app:layout_constraintStart_toEndOf="@id/nameTitle"
                             android:layout_marginEnd="10dp"
-                            android:gravity="end"
+                            android:gravity="start"
                             android:fontFamily="@font/league_spartan"
                             android:textColor="@color/Btn2"
                             android:textSize="20sp"
@@ -151,7 +102,7 @@
                             android:layout_marginStart="30dp"
                             app:layout_constraintStart_toEndOf="@id/apellidoTitle"
                             android:layout_marginEnd="10dp"
-                            android:gravity="end"
+                            android:gravity="start"
                             android:fontFamily="@font/league_spartan"
                             android:textColor="@color/Btn2"
                             android:textSize="20sp"
@@ -188,7 +139,7 @@
                             app:layout_constraintStart_toEndOf="@id/emailTitle"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/emailTitle"
-                            android:gravity="end"
+                            android:gravity="start"
                             android:textSize="20sp"
                             android:textColor="@color/Btn2"
                             android:fontFamily="@font/league_spartan" />
@@ -224,7 +175,7 @@
                             app:layout_constraintStart_toEndOf="@id/numeroTitle"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/numeroTitle"
-                            android:gravity="end"
+                            android:gravity="start"
                             android:textSize="20sp"
                             android:textColor="@color/Btn2"
                             android:fontFamily="@font/league_spartan" />
@@ -260,7 +211,7 @@
                             app:layout_constraintStart_toEndOf="@id/generoTitle"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/generoTitle"
-                            android:gravity="end"
+                            android:gravity="start"
                             android:textSize="20sp"
                             android:textColor="@color/Btn2"
                             android:fontFamily="@font/league_spartan" />
@@ -305,6 +256,7 @@
 
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/changePass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -319,4 +271,32 @@
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomNavContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottomnav_shape"
+                android:layout_gravity="bottom|center_horizontal"
+                app:itemIconTint="@color/black"
+                app:labelVisibilityMode="unlabeled"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                app:menu="@menu/bottom_nav_menu" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

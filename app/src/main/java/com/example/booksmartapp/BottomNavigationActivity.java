@@ -1,24 +1,34 @@
 package com.example.booksmartapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.booksmartapp.datos.CambiarPasswordActivity;
+import com.example.booksmartapp.datos.DatosUsuarioActivity;
 import com.example.booksmartapp.models.Biblioteca;
 import com.example.booksmartapp.models.Bibliotecas;
 import com.example.booksmartapp.models.SessionManager;
 import com.example.booksmartapp.register.viewmodels.BibliotecaViewModelFactory;
 import com.example.booksmartapp.select.adapters.BibliotecaAdapter;
 import com.example.booksmartapp.select.viewmodels.BibliotecasViewModel;
+import com.example.booksmartapp.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -31,6 +41,8 @@ public class BottomNavigationActivity extends AppCompatActivity {
     private NavController navController;
 
     private int selectedLibraryId = -1;
+
+    private View settingsMenu;
 
     private List<Biblioteca> listaBibliotecas;
     SessionManager sessionManager;
@@ -47,7 +59,15 @@ public class BottomNavigationActivity extends AppCompatActivity {
         });
         sessionManager = SessionManager.getInstance();
         findViews();
+        setUpSettings();
         loadBibliotecas();
+        Intent intent = getIntent();
+        String destino = intent.getStringExtra("destino");
+
+        if ("search".equals(destino)) {
+            navController.navigate(R.id.searchFragment);
+        }
+
 
     }
 
@@ -55,6 +75,8 @@ public class BottomNavigationActivity extends AppCompatActivity {
         dropdownBibliotecas = findViewById(R.id.dropdownBibliotecas);
         bottomNavigation = findViewById(R.id.bottomNavigation);
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        settingsMenu = findViewById(R.id.settings);
+        bottomNavigation = findViewById(R.id.bottomNavigation);
     }
 
     private void setDropdown(){
@@ -103,6 +125,11 @@ public class BottomNavigationActivity extends AppCompatActivity {
                 if (b.getNombre().equals(nombreSeleccionado)) {
                     selectedLibraryId = b.getId();
                     sessionManager.setBibliotecaSeleccionadaId(selectedLibraryId);
+
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.replace(R.id.nav_host_fragment, new HomeFragment());
+                    transaction.commit();
                     break;
                 }
             }
@@ -124,6 +151,34 @@ public class BottomNavigationActivity extends AppCompatActivity {
             } else {
                 listaBibliotecas = new ArrayList<>();
             }
+        });
+    }
+
+    private void setUpSettings() {
+        TextView userDataName = settingsMenu.findViewById(R.id.userDataName);
+        ImageButton menuIcon = settingsMenu.findViewById(R.id.menuIcon);
+
+        SessionManager sessionManager = SessionManager.getInstance();
+        userDataName.setText(sessionManager.getUsuario(this).getNombre());
+
+        menuIcon.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(this, menuIcon);
+            popup.getMenuInflater().inflate(R.menu.settings_menu, popup.getMenu());
+            popup.setOnMenuItemClickListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.userData) {
+                    startActivity(new Intent(this, DatosUsuarioActivity.class));
+                    return true;
+                } else if (id == R.id.change_pass) {
+                    startActivity(new Intent(this, CambiarPasswordActivity.class));
+                    return true;
+                } else if (id == R.id.logout) {
+                    // lógica de logout
+                    return true;
+                }
+                return false;
+            });
+            popup.show();
         });
     }
 

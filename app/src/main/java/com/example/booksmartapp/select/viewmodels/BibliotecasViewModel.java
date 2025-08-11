@@ -6,7 +6,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.booksmartapp.models.Bibliotecas;
+import com.example.booksmartapp.models.Prestamos;
 import com.example.booksmartapp.models.Usuario;
+import com.example.booksmartapp.models.requests.PrestamosRequest;
 import com.example.booksmartapp.responses.ApiResponse;
 import com.example.booksmartapp.select.BibliotecasRepository.BibliotecasRepository;
 
@@ -25,6 +27,9 @@ public class BibliotecasViewModel extends ViewModel {
     public LiveData<ApiResponse<Usuario>> getUsuarioInfo()
     {
         return bibliotecasRepository.getUsuarioInfo();
+    }
+    public LiveData<ApiResponse<Prestamos>> getPrestamos(int bibliotecaId, int usuarioId) {
+        return bibliotecasRepository.getPrestamos(bibliotecaId, usuarioId);
     }
 
 }

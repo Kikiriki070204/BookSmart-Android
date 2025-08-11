@@ -60,6 +60,14 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </FrameLayout>
+        <!-- Settings -->
+        <include
+            android:id="@+id/settings"
+            android:layout_width="match_parent"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="40dp"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_settings"/>
         <fragment
             android:id="@+id/nav_host_fragment"
             android:layout_width="match_parent"

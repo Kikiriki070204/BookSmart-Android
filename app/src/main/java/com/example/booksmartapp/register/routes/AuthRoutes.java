@@ -30,5 +30,4 @@ public interface AuthRoutes {
     @GET("auth/userinfo")
     Call<ApiResponse<Usuario>> getUserInfo();
 
-
 }

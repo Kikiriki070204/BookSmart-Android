@@ -66,10 +66,15 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
         viewModel.getBibliotecas().observe(this, bibliotecas -> {
             adapter.bibliotecasList.clear();
 
-            if (bibliotecas != null && bibliotecas.getData() != null && bibliotecas.getData().getBibliotecas() != null) {
+            if (bibliotecas != null && bibliotecas.getData() != null && bibliotecas.getData().getBibliotecas() != null && !bibliotecas.getData().getBibliotecas().isEmpty()) {
                 SessionManager sessionManager =  SessionManager.getInstance();
                 sessionManager.setBibliotecas(bibliotecas.getData().getBibliotecas());
                 adapter.bibliotecasList.addAll(bibliotecas.getData().getBibliotecas());
+                noBibliotecasText.setVisibility(View.GONE);
+                bibliotecasRecycler.setVisibility(View.VISIBLE);
+            } else {
+                noBibliotecasText.setVisibility(View.VISIBLE);
+                bibliotecasRecycler.setVisibility(View.GONE);
             }
             adapter.notifyDataSetChanged();
         });

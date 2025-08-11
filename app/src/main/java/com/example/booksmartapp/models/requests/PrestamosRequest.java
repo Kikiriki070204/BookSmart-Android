@@ -11,5 +11,8 @@ public class PrestamosRequest {
 
     private int usuarioId;
 
+    public PrestamosRequest(int usuarioId) {
+        this.usuarioId = usuarioId;
+    }
 
 }

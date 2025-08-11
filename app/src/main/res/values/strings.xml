@@ -24,7 +24,7 @@
 
     <string name="bibliotecas">Bibliotecas en las \n que estás registrado</string>
     <string name="select_biblioteca">Selecciona la biblioteca que deseas consultar</string>
-    <string name="no_bibliotecas">Ninguna biblioteca disponible</string>
+    <string name="no_bibliotecas">Bibliotecas sin disponibilidad</string>
 
     <!--Home-->
     <string name="welcome_settings">Hola, bienvenido de vuelta</string>
