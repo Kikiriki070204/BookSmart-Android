@@ -8,6 +8,8 @@ import com.example.booksmartapp.models.Bibliotecas;
 import com.example.booksmartapp.models.Prestamo;
 import com.example.booksmartapp.models.Prestamos;
 import com.example.booksmartapp.models.SessionManager;
+import com.example.booksmartapp.models.Usuario;
+import com.example.booksmartapp.models.requests.PrestamosRequest;
 import com.example.booksmartapp.register.routes.AuthRoutes;
 import com.example.booksmartapp.responses.ApiResponse;
 import com.example.booksmartapp.responses.ErrorResponse;
@@ -16,6 +18,7 @@ import com.example.booksmartapp.responses.UsuarioResponse;
 import com.example.booksmartapp.responses.VerifyResponse;
 import com.example.booksmartapp.retrofit.auth_request;
 import com.example.booksmartapp.retrofit.business_request;
+import com.example.booksmartapp.retrofit.auth_header_request;
 import com.example.booksmartapp.select.routes.BibliotecaRoutes;
 import com.google.gson.Gson;
 
@@ -25,7 +28,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class BibliotecasRepository {
-    private Retrofit retrofit;
+    private Retrofit retrofit, headerRetrofit;
     private String token;
     private int id;
     private SessionManager sessionManager;
@@ -34,12 +37,17 @@ public class BibliotecasRepository {
     public BibliotecasRepository(Context context) {
         sessionManager = SessionManager.getInstance();
         token = sessionManager.getToken(context);
-        id = sessionManager.getUsuario().getId();
+        id = sessionManager.getUser().getId();
         setRetrofit();
     }
 
     private void setRetrofit() {
         retrofit = business_request.getRetrofit(token);
+    }
+
+    private void authRetrofit()
+    {
+        headerRetrofit = auth_header_request.getRetrofitWithInterceptor(token);
     }
 
     public MutableLiveData<ApiResponse<Bibliotecas>> getBibliotecas() {
@@ -83,12 +91,12 @@ public class BibliotecasRepository {
     }
 
 
-    public MutableLiveData<ApiResponse<Prestamos>> getPrestamos(){
+    public MutableLiveData<ApiResponse<Prestamos>> getPrestamos(int bibliotecaId, PrestamosRequest request) {
         setRetrofit();
         BibliotecaRoutes prestamoRoute = retrofit.create(BibliotecaRoutes.class);
         MutableLiveData<ApiResponse<Prestamos>> result = new MutableLiveData<>();
+        prestamoRoute.getPrestamosByBiblioteca(bibliotecaId, request).enqueue(new Callback<>() {
 
-        prestamoRoute.getPrestamosByUsuario().enqueue(new Callback<ApiResponse<Prestamos>>() {
             @Override
             public void onResponse(Call<ApiResponse<Prestamos>> call, Response<ApiResponse<Prestamos>> response) {
 
@@ -99,7 +107,34 @@ public class BibliotecasRepository {
 
             }
         });
-
         return null;
     }
+
+
+    public MutableLiveData<ApiResponse<Usuario>> getUsuarioInfo()
+    {
+        authRetrofit();
+        AuthRoutes authRoute = headerRetrofit.create(AuthRoutes.class);
+        MutableLiveData<ApiResponse<Usuario>> result = new MutableLiveData<>();
+
+        authRoute.getUserInfo().enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Usuario>> call, Response<ApiResponse<Usuario>> response) {
+                ApiResponse<Usuario> usuarioApiResponse = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    result.setValue(usuarioApiResponse);
+                } else {
+                    result.setValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Usuario>> call, Throwable t) {
+            result.setValue(null);
+            }
+        });
+        return result;
+    }
+
+
 }

@@ -46,10 +46,8 @@ public class BottomNavigationActivity extends AppCompatActivity {
             return insets;
         });
         sessionManager = SessionManager.getInstance();
-        loadBibliotecas();
         findViews();
-        setDropdown();
-        setBottomNavigation();
+        loadBibliotecas();
 
     }
 
@@ -122,6 +120,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
                 listaBibliotecas = bibliotecas.getData().getBibliotecas();
                 sessionManager.setBibliotecas(listaBibliotecas);
                 setDropdown();
+                setBottomNavigation();
             } else {
                 listaBibliotecas = new ArrayList<>();
             }

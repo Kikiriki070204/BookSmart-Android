@@ -1,5 +1,8 @@
 package com.example.booksmartapp.retrofit;
 
+import com.example.booksmartapp.interceptor.AuthInterceptor;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -9,7 +12,7 @@ public class auth_request {
     public static Retrofit getRetrofit(){
         if(retrofit==null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.8:3333/api/")
+                    .baseUrl("http://192.168.100.119:3333/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

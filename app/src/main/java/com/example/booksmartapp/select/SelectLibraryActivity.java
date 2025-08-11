@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,6 +44,7 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
             return insets;
         });
         findViews();
+        setUserInfo();
         setUpRecyclerView();
     }
 
@@ -79,6 +81,20 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
         SessionManager sessionManager = SessionManager.getInstance();
         sessionManager.setBibliotecaSeleccionadaId(biblioteca.getId());
         Intent intent = new Intent(this, BottomNavigationActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
+    private void setUserInfo() {
+        BibliotecaViewModelFactory factory = new BibliotecaViewModelFactory(this);
+        BibliotecasViewModel viewModel = new ViewModelProvider(this, factory).get(BibliotecasViewModel.class);
+        viewModel.getUsuarioInfo().observe(this, usuarioResponse -> {
+            if (usuarioResponse != null && usuarioResponse.getData() != null) {
+                SessionManager sessionManager = SessionManager.getInstance();
+                sessionManager.saveUsuario(this, usuarioResponse.getData());
+            } else {
+                Toast.makeText(this, "Error al obtener la información del usuario", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

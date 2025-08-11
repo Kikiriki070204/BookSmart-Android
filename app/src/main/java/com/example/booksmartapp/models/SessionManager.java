@@ -3,6 +3,8 @@ package com.example.booksmartapp.models;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 public class SessionManager {
@@ -11,7 +13,18 @@ public class SessionManager {
     private List<Biblioteca> bibliotecas;
 
     private int bibliotecaSeleccionadaId;
-    private Usuario.UsuarioLogin usuario;
+
+    private Usuario usuario;
+
+    public Usuario.UsuarioLogin getUser() {
+        return user;
+    }
+
+    public void setUser(Usuario.UsuarioLogin user) {
+        this.user = user;
+    }
+
+    private Usuario.UsuarioLogin user;
     private String token;
 
     public String getContrasena() {
@@ -23,6 +36,14 @@ public class SessionManager {
     }
 
     private String contrasena;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public List<Biblioteca> getBibliotecas() {
         return bibliotecas;
@@ -38,14 +59,6 @@ public class SessionManager {
 
     public void setBibliotecaSeleccionadaId(int bibliotecaSeleccionadaId) {
         this.bibliotecaSeleccionadaId = bibliotecaSeleccionadaId;
-    }
-
-    public Usuario.UsuarioLogin getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario.UsuarioLogin usuario) {
-        this.usuario = usuario;
     }
 
     public SessionManager() {
@@ -74,5 +87,26 @@ public class SessionManager {
             token = prefs.getString("token", null);
         }
         return token;
+    }
+
+
+    public void saveUsuario(Context context, Usuario usuario) {
+        this.usuario = usuario;
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        String usuarioJson = new Gson().toJson(usuario);
+        editor.putString("usuario", usuarioJson);
+        editor.apply();
+    }
+
+    public Usuario getUsuario(Context context) {
+        if (usuario == null) {
+            SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            String usuarioJson = prefs.getString("usuario", null);
+            if (usuarioJson != null) {
+                usuario = new Gson().fromJson(usuarioJson, Usuario.class);
+            }
+        }
+        return usuario;
     }
 }

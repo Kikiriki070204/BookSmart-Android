@@ -11,6 +11,7 @@ import com.example.booksmartapp.responses.VerifyResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -25,6 +26,9 @@ public interface AuthRoutes {
 
     @POST("auth/login")
     Call<ApiResponse<LoginResponse>> login(@Body LoginRequest request);
+
+    @GET("auth/userinfo")
+    Call<ApiResponse<Usuario>> getUserInfo();
 
 
 }

@@ -9,6 +9,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import com.example.booksmartapp.models.Usuario;
 import com.example.booksmartapp.models.requests.LoginRequest;
 import com.example.booksmartapp.models.requests.RegisterRequest;
 import com.example.booksmartapp.models.requests.VerifyRequest;
@@ -121,33 +122,10 @@ public class AuthRepository {
         return result;
     }
 
-  /*
-    public MutableLiveData<ApiResponse<LoginResponse>> login(LoginRequest request) {
+    public MutableLiveData<ApiResponse<Usuario>> getUserInfo()
+    {
         setRetrofit();
-        AuthRoutes authRoute = retrofit.create(AuthRoutes.class);
-        MutableLiveData<ApiResponse<LoginResponse>> result = new MutableLiveData<>();
-        ApiResponse<LoginResponse> apiResponse = new ApiResponse<>();
 
-        authRoute.login(request).enqueue(new Callback<ApiResponse<LoginResponse>>() {
-
-            @Override
-            public void onResponse(Call<ApiResponse<LoginResponse>> call, Response<ApiResponse<LoginResponse>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    apiResponse.setData(response.body().getData());
-                    apiResponse.setMsg(response.body().getMsg());
-                    result.setValue(apiResponse);
-                }
-                else
-                    result.setValue(null);
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse<LoginResponse>> call, Throwable t) {
-                    result.setValue(null);
-            }
-        });
-
-        return result;
+        return null;
     }
-     */
 }

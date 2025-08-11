@@ -173,9 +173,9 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, loginResponseApiResponse.getMsg(), Toast.LENGTH_SHORT).show();
                         }
                         SessionManager sessionManager = SessionManager.getInstance();
-                        sessionManager.setUsuario(loginResponseApiResponse.getData().getUser());
                         sessionManager.saveToken(LoginActivity.this, loginResponseApiResponse.getData().getToken());
                         sessionManager.setContrasena(editPassword.getText().toString().trim());
+                        sessionManager.setUser(loginResponseApiResponse.getData().getUser());
                         Intent intent = new Intent(LoginActivity.this, SelectLibraryActivity.class);
                         startActivity(intent);
                     } else {

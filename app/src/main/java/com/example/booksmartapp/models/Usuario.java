@@ -8,20 +8,9 @@ public class Usuario {
     private String contrasena;
     private String celular;
     private String genero;
-    private boolean active;
-    private int rol_id;
-    private String token;
-    public Usuario(int id, String nombre, String apellido, String correo, String celular, String contrasena, boolean active, int rol_id, String genero) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correo = correo;
-        this.celular = celular;
-        this.contrasena = contrasena;
-        this.active = active;
-        this.rol_id = rol_id;
-        this.genero = genero;
-    }
+    private DatosAdicionales datos_adicionales;
+    private String  role;
+
 
     public int getId() {
         return id;
@@ -46,12 +35,21 @@ public class Usuario {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     public String getCorreo() {
         return correo;
     }
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getCelular() {
@@ -61,29 +59,7 @@ public class Usuario {
     public void setCelular(String celular) {
         this.celular = celular;
     }
-    public String getContrasena() {
-        return contrasena;
-    }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public int getRol_id() {
-        return rol_id;
-    }
-
-    public void setRol_id(int rol_id) {
-        this.rol_id = rol_id;
-    }
     public String getGenero() {
         return genero;
     }
@@ -92,13 +68,35 @@ public class Usuario {
         this.genero = genero;
     }
 
-    public String getToken() {
-        return token;
+
+    public DatosAdicionales getDatos_adicionales() {
+        return datos_adicionales;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setDatos_adicionales(DatosAdicionales datos_adicionales) {
+        this.datos_adicionales = datos_adicionales;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int isActivo() {
+        return activo;
+    }
+
+    public void setActivo(int activo) {
+        this.activo = activo;
+    }
+
+    private int activo;
+
+
+
 
     public static class UsuarioLogin {
         private int id;
