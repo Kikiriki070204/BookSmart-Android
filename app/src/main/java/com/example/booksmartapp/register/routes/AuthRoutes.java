@@ -1,6 +1,7 @@
 package com.example.booksmartapp.register.routes;
 
 import com.example.booksmartapp.models.Usuario;
+import com.example.booksmartapp.models.requests.ChangePassRequest;
 import com.example.booksmartapp.models.requests.LoginRequest;
 import com.example.booksmartapp.models.requests.RegisterRequest;
 import com.example.booksmartapp.models.requests.VerifyRequest;
@@ -13,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface AuthRoutes {
@@ -30,4 +32,6 @@ public interface AuthRoutes {
     @GET("auth/userinfo")
     Call<ApiResponse<Usuario>> getUserInfo();
 
+    @PUT("auth/cambiar-contrasena")
+    Call<ApiResponse> cambiarContrasena(ChangePassRequest request);
 }

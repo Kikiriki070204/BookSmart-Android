@@ -100,5 +100,6 @@ public class HomeFragment extends Fragment implements PrestamoListener {
     @Override
     public void OnClick(Prestamo prestamo) {
 
+
     }
 }

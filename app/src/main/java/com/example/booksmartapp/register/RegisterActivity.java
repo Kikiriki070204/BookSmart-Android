@@ -302,9 +302,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Método auxiliar para validar la confirmación de contraseña
-     */
     private void validatePasswordConfirmation() {
         String input = editConfPassword.getText().toString().trim();
         String password = editPassword.getText().toString().trim();

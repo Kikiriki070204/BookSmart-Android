@@ -18,5 +18,7 @@ public interface BibliotecaRoutes {
     @GET("prestamos/biblioteca/{bibliotecaId}/{usuarioId}")
     Call<ApiResponse<Prestamos>> getPrestamosByBiblioteca(@Path("bibliotecaId") int bibliotecaId,
                                                            @Path("usuarioId") int usuarioId);
+    @GET("prestamo/{id}")
+    Call<ApiResponse<Prestamo>> getPrestamoById(@Path("id") int prestamoId);
 
 }

@@ -9,6 +9,7 @@ import com.example.booksmartapp.models.Prestamo;
 import com.example.booksmartapp.models.Prestamos;
 import com.example.booksmartapp.models.SessionManager;
 import com.example.booksmartapp.models.Usuario;
+import com.example.booksmartapp.models.requests.ChangePassRequest;
 import com.example.booksmartapp.models.requests.PrestamosRequest;
 import com.example.booksmartapp.register.routes.AuthRoutes;
 import com.example.booksmartapp.responses.ApiResponse;
@@ -155,5 +156,53 @@ public class BibliotecasRepository {
         return result;
     }
 
+    public MutableLiveData<ApiResponse> changePassword(ChangePassRequest request) {
+        authRetrofit();
+        AuthRoutes authRoute = headerRetrofit.create(AuthRoutes.class);
+        MutableLiveData<ApiResponse> result = new MutableLiveData<>();
+
+        authRoute.cambiarContrasena(request).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {
+            ApiResponse changeResponse = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    result.setValue(changeResponse);
+                } else {
+                    result.setValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse> call, Throwable t) {
+                result.setValue(null);
+            }
+        });
+    return result;
+    }
+
+    public MutableLiveData<ApiResponse<Prestamo>> getPrestamo(int prestamoId) {
+        setRetrofit();
+        BibliotecaRoutes prestamoRoute = retrofit.create(BibliotecaRoutes.class);
+        MutableLiveData<ApiResponse<Prestamo>> result = new MutableLiveData<>();
+
+        prestamoRoute.getPrestamoById(prestamoId).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Prestamo>> call, Response<ApiResponse<Prestamo>> response) {
+                ApiResponse<Prestamo> prestamoApiResponse = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    result.setValue(prestamoApiResponse);
+                } else {
+                    result.setValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Prestamo>> call, Throwable t) {
+                result.setValue(null);
+            }
+        });
+
+        return result;
+    }
 
 }

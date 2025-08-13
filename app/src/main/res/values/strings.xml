@@ -48,6 +48,9 @@
 
     <!--Cambiar contra-->
     <string name="changePass">Cambiar contraseña</string>
+    <string name="newPass">Nueva Contraseña</string>
+    <string name="confPass">Confirmar nueva contraseña</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
