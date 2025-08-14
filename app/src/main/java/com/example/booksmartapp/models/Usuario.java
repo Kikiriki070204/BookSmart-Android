@@ -1,7 +1,7 @@
 package com.example.booksmartapp.models;
 
 public class Usuario {
-    private int id;
+    private int user_id;
     private String nombre;
     private String apellido;
     private String correo;
@@ -13,11 +13,11 @@ public class Usuario {
 
 
     public int getId() {
-        return id;
+        return user_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.user_id = id;
     }
 
     public String getNombre() {

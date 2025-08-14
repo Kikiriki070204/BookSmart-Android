@@ -86,8 +86,8 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
         SessionManager sessionManager = SessionManager.getInstance();
         sessionManager.setBibliotecaSeleccionadaId(biblioteca.getId());
         Intent intent = new Intent(this, BottomNavigationActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
-        finish();
     }
 
     private void setUserInfo() {

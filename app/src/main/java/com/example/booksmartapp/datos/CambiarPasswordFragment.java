@@ -1,38 +1,29 @@
 package com.example.booksmartapp.datos;
 
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.example.booksmartapp.BottomNavigationActivity;
 import com.example.booksmartapp.R;
 import com.example.booksmartapp.models.SessionManager;
 import com.example.booksmartapp.models.requests.ChangePassRequest;
-import com.example.booksmartapp.register.RegisterActivity;
-import com.example.booksmartapp.register.VerifyActivity;
 import com.example.booksmartapp.register.viewmodels.BibliotecaViewModelFactory;
 import com.example.booksmartapp.select.viewmodels.BibliotecasViewModel;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.regex.Pattern;
 
-public class CambiarPasswordActivity extends AppCompatActivity {
-
+public class CambiarPasswordFragment extends Fragment {
     private TextInputEditText editPasswordActual, editPasswordNueva, editPasswordConfirmar;
     private TextView errorPasswordActual, errorPasswordNueva, errorPasswordConfirmar;
 
@@ -41,40 +32,42 @@ public class CambiarPasswordActivity extends AppCompatActivity {
     private boolean isPasswordConfirmarValid = false;
     private MaterialButton btnChangePassword;
     private Pattern passwordPattern = Pattern.compile("^((?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])).{8,}$");
+    private View rootView;
+    private SessionManager sessionManager;
 
-    private View settingsMenu;
-    private BottomNavigationView bottomNavigation;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_cambiar_password);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        findViews();
-        setValidations();
-        setUpSettings();
-        setBottomNavigation();
-
-        setBtnChangePassword();
-        updateButtonState();
+    public CambiarPasswordFragment() {
+        // Required empty public constructor
     }
 
-    private void findViews(){
-        editPasswordActual = findViewById(R.id.editPasswordActual);
-        editPasswordNueva = findViewById(R.id.editPasswordNueva);
-        editPasswordConfirmar = findViewById(R.id.editConfPasswordNueva);
-        errorPasswordActual = findViewById(R.id.errorPasswordActual);
-        errorPasswordNueva = findViewById(R.id.errorPasswordNueva);
-        errorPasswordConfirmar = findViewById(R.id.errorConfPassword);
+    public static CambiarPasswordFragment newInstance(String param1, String param2) {
+        CambiarPasswordFragment fragment = new CambiarPasswordFragment();
+        Bundle args = new Bundle();
+        return fragment;
+    }
 
-        settingsMenu = findViewById(R.id.settingsPassword);
-        bottomNavigation = findViewById(R.id.bottomNavigationPassword);
-        btnChangePassword = findViewById(R.id.changePasswordButton);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_cambiar_password, container, false);
+        sessionManager = SessionManager.getInstance();
+        findViews();
+        setValidations();
+        setBtnChangePassword();
+        return rootView;
+    }
+
+    private void findViews() {
+        editPasswordActual = rootView.findViewById(R.id.editPasswordActual);
+        editPasswordNueva = rootView.findViewById(R.id.editPasswordNueva);
+        editPasswordConfirmar = rootView.findViewById(R.id.editConfPasswordNueva);
+        errorPasswordActual = rootView.findViewById(R.id.errorPasswordActual);
+        errorPasswordNueva = rootView.findViewById(R.id.errorPasswordNueva);
+        errorPasswordConfirmar = rootView.findViewById(R.id.errorConfPasswordNueva);
+        btnChangePassword = rootView.findViewById(R.id.changePasswordButton);
     }
 
     private void setValidations(){
@@ -84,7 +77,6 @@ public class CambiarPasswordActivity extends AppCompatActivity {
     }
 
     private void editPasswordActualValidation(){
-        SessionManager sessionManager = SessionManager.getInstance();
         String currentPassword = sessionManager.getContrasena();
 
         editPasswordActual.addTextChangedListener(new TextWatcher() {
@@ -205,78 +197,32 @@ public class CambiarPasswordActivity extends AppCompatActivity {
                 !editPasswordConfirmar.getText().toString().trim().isEmpty();
     }
 
-    private void setUpSettings() {
-        TextView userDataName = settingsMenu.findViewById(R.id.userDataName);
-        ImageButton menuIcon = settingsMenu.findViewById(R.id.menuIcon);
-
-        SessionManager sessionManager = SessionManager.getInstance();
-        userDataName.setText(sessionManager.getUsuario(this).getNombre());
-
-        menuIcon.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(this, menuIcon);
-            popup.getMenuInflater().inflate(R.menu.settings_menu, popup.getMenu());
-            popup.setOnMenuItemClickListener(item -> {
-                int id = item.getItemId();
-                if (id == R.id.userData) {
-                    startActivity(new Intent(this, DatosUsuarioActivity.class));
-                    return true;
-                } else if (id == R.id.change_pass) {
-                    startActivity(new Intent(this, CambiarPasswordActivity.class));
-                    return true;
-                } else if (id == R.id.logout) {
-                    // lógica de logout
-                    return true;
+    private void setBtnChangePassword()
+    {
+        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isFormCompleteAndValid()) {
+                    Toast.makeText(requireContext(), "Por favor, completa correctamente todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                return false;
-            });
-            popup.show();
-        });
-    }
 
-    private void setBottomNavigation(){
-        bottomNavigation.setOnItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.nav_home) {
-                startActivity(new Intent(this, BottomNavigationActivity.class));
-                return true;
-            } else if (itemId == R.id.nav_search) {
-                Intent intent = new Intent(this, BottomNavigationActivity.class);
-                intent.putExtra("destino", "search");
-                startActivity(intent);
-                return true;
-            } else {
-                return false;
+                ChangePassRequest request = new ChangePassRequest(
+                        editPasswordActual.getText().toString().trim(),
+                        editPasswordNueva.getText().toString().trim()
+                );
+
+                BibliotecaViewModelFactory factory = new BibliotecaViewModelFactory(requireContext());
+                BibliotecasViewModel viewModel = new ViewModelProvider(requireActivity(), factory).get(BibliotecasViewModel.class);
+
+                viewModel.cambiarContrasena(request).observe(getViewLifecycleOwner(), response -> {
+                    if (response != null) {
+                        Toast.makeText(requireActivity(), "Contraseña cambiada exitosamente", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(requireActivity(), "Error al registrar", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
-
-    private void setBtnChangePassword()
-    {
-     btnChangePassword.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             if (!isFormCompleteAndValid()) {
-                 Toast.makeText(CambiarPasswordActivity.this, "Por favor, completa correctamente todos los campos", Toast.LENGTH_SHORT).show();
-                 return;
-             }
-
-             ChangePassRequest request = new ChangePassRequest(
-                     editPasswordActual.getText().toString().trim(),
-                     editPasswordNueva.getText().toString().trim()
-             );
-
-             BibliotecaViewModelFactory factory = new BibliotecaViewModelFactory(CambiarPasswordActivity.this);
-             BibliotecasViewModel viewModel = new ViewModelProvider(CambiarPasswordActivity.this, factory).get(BibliotecasViewModel.class);
-
-             viewModel.cambiarContrasena(request).observe(CambiarPasswordActivity.this, response -> {
-                 if (response != null) {
-                     Toast.makeText(CambiarPasswordActivity.this, "Contraseña cambiada exitosamente", Toast.LENGTH_SHORT).show();
-                 } else {
-                     Toast.makeText(CambiarPasswordActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
-                 }
-             });
-         }
-     });
-    }
-
 }

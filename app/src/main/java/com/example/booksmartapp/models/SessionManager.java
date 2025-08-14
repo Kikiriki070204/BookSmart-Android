@@ -109,4 +109,18 @@ public class SessionManager {
         }
         return usuario;
     }
+
+    public void logout(Context context) {
+        usuario = null;
+        user = null;
+        token = null;
+        contrasena = null;
+        bibliotecas = null;
+        bibliotecaSeleccionadaId = 0;
+
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.apply();
+    }
 }

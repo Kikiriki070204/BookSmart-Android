@@ -23,6 +23,8 @@ import com.example.booksmartapp.retrofit.auth_header_request;
 import com.example.booksmartapp.select.routes.BibliotecaRoutes;
 import com.google.gson.Gson;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -92,15 +94,15 @@ public class BibliotecasRepository {
     }
 
 
-    public MutableLiveData<ApiResponse<Prestamos>> getPrestamos(int bibliotecaId, int usuarioId) {
+    public MutableLiveData<ApiResponse<List<Prestamo>>> getPrestamos(int bibliotecaId, int usuarioId) {
         setRetrofit();
         BibliotecaRoutes prestamoRoute = retrofit.create(BibliotecaRoutes.class);
-        MutableLiveData<ApiResponse<Prestamos>> result = new MutableLiveData<>();
+        MutableLiveData<ApiResponse<List<Prestamo>>> result = new MutableLiveData<>();
         prestamoRoute.getPrestamosByBiblioteca(bibliotecaId, usuarioId).enqueue(new Callback<>() {
 
             @Override
-            public void onResponse(Call<ApiResponse<Prestamos>> call, Response<ApiResponse<Prestamos>> response) {
-                ApiResponse<Prestamos> apiResponse = response.body();
+            public void onResponse(Call<ApiResponse<List<Prestamo>>> call, Response<ApiResponse<List<Prestamo>>> response) {
+                ApiResponse<List<Prestamo>> apiResponse = response.body();
                 if (response.isSuccessful() && response.body() != null) {
                     result.setValue(apiResponse);
                 } else {
@@ -109,7 +111,7 @@ public class BibliotecasRepository {
                             Gson gson = new Gson();
                             ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
 
-                            ApiResponse<Prestamos> errorApiResponse = new ApiResponse<>();
+                            ApiResponse<List<Prestamo>> errorApiResponse = new ApiResponse<>();
                             errorApiResponse.setStatus(errorResponse.getStatus());
                             errorApiResponse.setMsg(errorResponse.getMsg());
                             errorApiResponse.setData(null);
@@ -124,8 +126,8 @@ public class BibliotecasRepository {
             }
 
             @Override
-            public void onFailure(Call<ApiResponse<Prestamos>> call, Throwable t) {
-                result.setValue(null);
+            public void onFailure(Call<ApiResponse<List<Prestamo>>> call, Throwable t) {
+            result.setValue(null);
             }
         });
         return result;

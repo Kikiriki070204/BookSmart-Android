@@ -6,6 +6,8 @@ import com.example.booksmartapp.models.Prestamos;
 import com.example.booksmartapp.models.requests.PrestamosRequest;
 import com.example.booksmartapp.responses.ApiResponse;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -16,8 +18,8 @@ public interface BibliotecaRoutes {
     Call<ApiResponse<Bibliotecas>> getBibliotecas(@Path("id") int i);
 
     @GET("prestamos/biblioteca/{bibliotecaId}/{usuarioId}")
-    Call<ApiResponse<Prestamos>> getPrestamosByBiblioteca(@Path("bibliotecaId") int bibliotecaId,
-                                                           @Path("usuarioId") int usuarioId);
+    Call<ApiResponse<List<Prestamo>>> getPrestamosByBiblioteca(@Path("bibliotecaId") int bibliotecaId,
+                                                               @Path("usuarioId") int usuarioId);
     @GET("prestamo/{id}")
     Call<ApiResponse<Prestamo>> getPrestamoById(@Path("id") int prestamoId);
 

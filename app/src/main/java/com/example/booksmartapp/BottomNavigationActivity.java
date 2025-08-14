@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -20,8 +21,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.booksmartapp.datos.CambiarPasswordActivity;
-import com.example.booksmartapp.datos.DatosUsuarioActivity;
 import com.example.booksmartapp.models.Biblioteca;
 import com.example.booksmartapp.models.Bibliotecas;
 import com.example.booksmartapp.models.SessionManager;
@@ -43,6 +42,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
     private int selectedLibraryId = -1;
 
     private View settingsMenu;
+    private FrameLayout bibliotecas;
 
     private List<Biblioteca> listaBibliotecas;
     SessionManager sessionManager;
@@ -63,11 +63,10 @@ public class BottomNavigationActivity extends AppCompatActivity {
         loadBibliotecas();
         Intent intent = getIntent();
         String destino = intent.getStringExtra("destino");
-
+        manageNavigationItems();
         if ("search".equals(destino)) {
             navController.navigate(R.id.searchFragment);
         }
-
 
     }
 
@@ -77,6 +76,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         settingsMenu = findViewById(R.id.settings);
         bottomNavigation = findViewById(R.id.bottomNavigation);
+        bibliotecas = findViewById(R.id.Bibliotecas);
     }
 
     private void setDropdown(){
@@ -154,6 +154,25 @@ public class BottomNavigationActivity extends AppCompatActivity {
         });
     }
 
+    private void manageNavigationItems()
+    {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.detalleFragment) {
+                bibliotecas.setVisibility(View.GONE);
+                settingsMenu.setVisibility(View.GONE);
+                bottomNavigation.setVisibility(View.GONE);
+            } else if(destination.getId() == R.id.datosFragment) {
+                bibliotecas.setVisibility(View.GONE);
+            }
+            else {
+                    bibliotecas.setVisibility(View.VISIBLE);
+                    settingsMenu.setVisibility(View.VISIBLE);
+                    bottomNavigation.setVisibility(View.VISIBLE);
+                }
+        });
+    }
+
     private void setUpSettings() {
         TextView userDataName = settingsMenu.findViewById(R.id.userDataName);
         ImageButton menuIcon = settingsMenu.findViewById(R.id.menuIcon);
@@ -167,13 +186,13 @@ public class BottomNavigationActivity extends AppCompatActivity {
             popup.setOnMenuItemClickListener(item -> {
                 int id = item.getItemId();
                 if (id == R.id.userData) {
-                    startActivity(new Intent(this, DatosUsuarioActivity.class));
+                    navController.navigate(R.id.datosFragment);
                     return true;
                 } else if (id == R.id.change_pass) {
-                    startActivity(new Intent(this, CambiarPasswordActivity.class));
+                    navController.navigate(R.id.cambiarPasswordFragment);
                     return true;
                 } else if (id == R.id.logout) {
-                    // lógica de logout
+                    logout();
                     return true;
                 }
                 return false;
@@ -182,5 +201,13 @@ public class BottomNavigationActivity extends AppCompatActivity {
         });
     }
 
+    private void logout()
+    {
+        sessionManager.logout(this);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
 
 }

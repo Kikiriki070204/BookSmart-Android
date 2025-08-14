@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,8 +18,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.example.booksmartapp.R;
-import com.example.booksmartapp.datos.CambiarPasswordActivity;
-import com.example.booksmartapp.datos.DatosUsuarioActivity;
 import com.example.booksmartapp.models.Prestamo;
 import com.example.booksmartapp.models.SessionManager;
 import com.example.booksmartapp.models.requests.PrestamosRequest;
@@ -80,7 +80,7 @@ public class HomeFragment extends Fragment implements PrestamoListener {
         viewModel.getPrestamos(id_biblioteca, id_usuario ).observe(getViewLifecycleOwner(), prestamosResponse -> {
             adapter.prestamosList.clear();
             if (prestamosResponse != null && prestamosResponse.getData() != null) {
-                List<Prestamo> prestamos = prestamosResponse.getData().getPrestamos();
+                List<Prestamo> prestamos = prestamosResponse.getData();
                 if (prestamos != null && !prestamos.isEmpty()) {
                     adapter.prestamosList.addAll(prestamos);
                     noPrestamosText.setVisibility(View.GONE);
@@ -99,7 +99,9 @@ public class HomeFragment extends Fragment implements PrestamoListener {
 
     @Override
     public void OnClick(Prestamo prestamo) {
+    int idPrestamo = prestamo.getId();
 
-
+    NavDirections action = HomeFragmentDirections.actionHomeToDetalleFragment(idPrestamo);
+    NavHostFragment.findNavController(this).navigate(action);
     }
 }

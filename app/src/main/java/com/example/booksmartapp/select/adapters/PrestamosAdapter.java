@@ -14,14 +14,10 @@ import com.example.booksmartapp.models.Prestamo;
 import com.example.booksmartapp.select.listeners.PrestamoListener;
 import com.google.android.material.card.MaterialCardView;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 public class PrestamosAdapter extends RecyclerView.Adapter<PrestamosAdapter.ViewHolder> {
 
@@ -57,7 +53,8 @@ public class PrestamosAdapter extends RecyclerView.Adapter<PrestamosAdapter.View
 
     @Override
     public int getItemCount() {
-        return 0;
+
+        return prestamosList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -77,18 +74,18 @@ public class PrestamosAdapter extends RecyclerView.Adapter<PrestamosAdapter.View
         }
 
         public void setdata(Prestamo prestamo) {
-            tituloLibro.setText(prestamo.getLibroNombre());
+            tituloLibro.setText(prestamo.getLibro_nombre());
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             try {
-                LocalDate inicio = LocalDate.parse(prestamo.getFechaPrestamo(), formatter);
-                LocalDate fin = LocalDate.parse(prestamo.getFechaDevolucion(), formatter);
+                LocalDate inicio = LocalDate.parse(prestamo.getFecha_prestamo(), formatter);
+                LocalDate fin = LocalDate.parse(prestamo.getFecha_devolucion(), formatter);
                 LocalDate hoy = LocalDate.now();
 
                 totalDias = (int) ChronoUnit.DAYS.between(inicio, fin) + 1;
                 diasTranscurridos = (int) ChronoUnit.DAYS.between(inicio, hoy) + 1;
 
-                tituloLibro.setText(prestamo.getLibroNombre());
+                tituloLibro.setText(prestamo.getLibro_nombre());
                 progreso.setText(diasTranscurridos + "/" + totalDias);
             } catch (Exception e) {
                 progreso.setText("Fechas inválidas");

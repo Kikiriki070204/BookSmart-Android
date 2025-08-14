@@ -19,13 +19,7 @@
             android:name=".select.SelectLibraryActivity"
             android:exported="false" />
         <activity
-            android:name=".datos.CambiarPasswordActivity"
-            android:exported="false" />
-        <activity
             android:name=".register.VerifyActivity"
-            android:exported="false" />
-        <activity
-            android:name=".datos.DatosUsuarioActivity"
             android:exported="false" />
         <activity
             android:name=".MessageActivity"
