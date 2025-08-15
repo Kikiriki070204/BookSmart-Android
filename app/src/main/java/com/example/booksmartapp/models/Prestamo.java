@@ -21,15 +21,15 @@ public class Prestamo {
         this.libro_editorial = libro_editorial;
     }
 
-    public String getLibro_descricpcion() {
-        return libro_descricpcion;
+    public String getLibro_descripcion() {
+        return libro_descripcion;
     }
 
     public void setLibro_descricpcion(String libro_descricpcion) {
-        this.libro_descricpcion = libro_descricpcion;
+        this.libro_descripcion = libro_descricpcion;
     }
 
-    private String libro_descricpcion;
+    private String libro_descripcion;
 
     private String biblioteca_nombre;
     private String seccion_etiqueta;

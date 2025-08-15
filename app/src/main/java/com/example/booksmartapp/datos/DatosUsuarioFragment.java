@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +28,6 @@ public class DatosUsuarioFragment extends Fragment {
     private SessionManager sessionManager;
 
     public DatosUsuarioFragment() {
-        // Required empty public constructor
     }
 
     public static DatosUsuarioFragment newInstance(String param1, String param2) {
@@ -46,6 +47,7 @@ public class DatosUsuarioFragment extends Fragment {
         sessionManager = SessionManager.getInstance();
         findViews();
         setUserData();
+        setUpButton();
         return rootView;
     }
 
@@ -67,4 +69,15 @@ public class DatosUsuarioFragment extends Fragment {
         generoData.setText(sessionManager.getUsuario(getContext()).getGenero());
     }
 
+    private void setUpButton()
+    {
+        changePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.actionDatosToCambiarPassword);
+            }
+        });
+
+    }
 }

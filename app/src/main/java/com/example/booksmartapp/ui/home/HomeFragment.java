@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.booksmartapp.R;
 import com.example.booksmartapp.models.Prestamo;
 import com.example.booksmartapp.models.SessionManager;
+import com.example.booksmartapp.models.Usuario;
 import com.example.booksmartapp.models.requests.PrestamosRequest;
 import com.example.booksmartapp.register.viewmodels.BibliotecaViewModelFactory;
 import com.example.booksmartapp.select.adapters.PrestamosAdapter;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment implements PrestamoListener {
     private RecyclerView prestamosRecycler;
     private SessionManager sessionManager;
     private TextView noPrestamosText;
+    private Usuario usuario;
 
     public HomeFragment() {
     }
@@ -55,6 +57,7 @@ public class HomeFragment extends Fragment implements PrestamoListener {
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         sessionManager = SessionManager.getInstance();
+        usuario =  sessionManager.getUsuario(requireContext());
         findViews();
         setUpPrestamosRecycler();
         return rootView;
@@ -74,8 +77,8 @@ public class HomeFragment extends Fragment implements PrestamoListener {
         prestamosRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         prestamosRecycler.setHasFixedSize(true);
 
-        int id_biblioteca  = sessionManager.getBibliotecaSeleccionadaId();
-        int id_usuario = sessionManager.getUsuario(getContext()).getId();
+        int id_biblioteca  = sessionManager.getBibliotecaSeleccionadaId(requireContext());
+        int id_usuario = usuario.getId();
 
         viewModel.getPrestamos(id_biblioteca, id_usuario ).observe(getViewLifecycleOwner(), prestamosResponse -> {
             adapter.prestamosList.clear();

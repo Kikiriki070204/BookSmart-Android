@@ -33,5 +33,5 @@ public interface AuthRoutes {
     Call<ApiResponse<Usuario>> getUserInfo();
 
     @PUT("auth/cambiar-contrasena")
-    Call<ApiResponse> cambiarContrasena(ChangePassRequest request);
+    Call<ApiResponse> cambiarContrasena(@Body ChangePassRequest request);
 }

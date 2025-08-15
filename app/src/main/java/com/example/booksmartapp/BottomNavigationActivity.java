@@ -58,6 +58,8 @@ public class BottomNavigationActivity extends AppCompatActivity {
             return insets;
         });
         sessionManager = SessionManager.getInstance();
+        sessionManager.getUsuario(this);
+        sessionManager.getToken(this);
         findViews();
         setUpSettings();
         loadBibliotecas();
@@ -124,7 +126,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
             for (Biblioteca b : listaBibliotecas) {
                 if (b.getNombre().equals(nombreSeleccionado)) {
                     selectedLibraryId = b.getId();
-                    sessionManager.setBibliotecaSeleccionadaId(selectedLibraryId);
+                    sessionManager.saveBibliotecaSeleccionadaId(BottomNavigationActivity.this,selectedLibraryId);
 
                     FragmentManager fragmentManager = getSupportFragmentManager();
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -164,8 +166,10 @@ public class BottomNavigationActivity extends AppCompatActivity {
                 bottomNavigation.setVisibility(View.GONE);
             } else if(destination.getId() == R.id.datosFragment) {
                 bibliotecas.setVisibility(View.GONE);
-            }
-            else {
+            } else if (destination.getId() == R.id.searchFragment) {
+                bibliotecas.setVisibility(View.GONE);
+                settingsMenu.setVisibility(View.GONE);
+            } else {
                     bibliotecas.setVisibility(View.VISIBLE);
                     settingsMenu.setVisibility(View.VISIBLE);
                     bottomNavigation.setVisibility(View.VISIBLE);

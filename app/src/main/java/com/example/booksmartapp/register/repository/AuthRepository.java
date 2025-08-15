@@ -45,7 +45,22 @@ public class AuthRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     result.setValue(apiResponse);
                 } else {
-                    result.setValue(apiResponse);
+                    if (response.errorBody() != null) {
+                        try {
+                            Gson gson = new Gson();
+                            ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+
+                            ApiResponse<UsuarioResponse> errorApiResponse = new ApiResponse<>();
+                            errorApiResponse.setStatus(errorResponse.getStatus());
+                            errorApiResponse.setMsg(errorResponse.getMsg());
+                            errorApiResponse.setData(null);
+
+                            result.setValue(errorApiResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            result.setValue(null);
+                        }
+                    }
                 }
             }
 
@@ -70,7 +85,22 @@ public class AuthRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     result.setValue(apiResponse);
                 } else {
-                    result.setValue(apiResponse);
+                    if (response.errorBody() != null) {
+                        try {
+                            Gson gson = new Gson();
+                            ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+
+                            ApiResponse<VerifyResponse> errorApiResponse = new ApiResponse<>();
+                            errorApiResponse.setStatus(errorResponse.getStatus());
+                            errorApiResponse.setMsg(errorResponse.getMsg());
+                            errorApiResponse.setData(null);
+
+                            result.setValue(errorApiResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            result.setValue(null);
+                        }
+                    }
                 }
             }
 
@@ -120,12 +150,5 @@ public class AuthRepository {
         });
 
         return result;
-    }
-
-    public MutableLiveData<ApiResponse<Usuario>> getUserInfo()
-    {
-        setRetrofit();
-
-        return null;
     }
 }

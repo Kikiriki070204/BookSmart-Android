@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/messageDialog"
+    android:layout_width="330dp"
+    android:layout_height="250dp"
+    android:layout_centerInParent="true"
+    app:cardCornerRadius="30dp"
+    android:clipToOutline="true"
+    android:backgroundTint="@color/Borders">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/warning_circle"
+            android:layout_centerHorizontal="true"
+            app:tint="@color/white"/>
+        <TextView
+            android:id="@+id/dialogErrorTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon"
+            android:text=""
+            android:textSize="25sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:fontFamily="@font/league_spartan_medium"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/dialogErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="17sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/league_spartan"
+            android:layout_below="@id/dialogErrorTitle"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true" />
+
+        <LinearLayout
+            android:id="@+id/dialogErrorButtons"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btnConfError"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Aceptar"
+                android:textAllCaps="false"
+                android:textSize="25sp"
+                android:fontFamily="@font/league_spartan_semibold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/Btn2"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -26,7 +26,13 @@
     <fragment
         android:id="@+id/datosFragment"
         android:name="com.example.booksmartapp.datos.DatosUsuarioFragment"
-        android:label="Datos Usuario" />
+        android:label="Datos Usuario">
+
+        <action
+            android:id="@+id/actionDatosToCambiarPassword"
+            app:destination="@id/cambiarPasswordFragment" />
+
+    </fragment>
     <fragment
         android:id="@+id/cambiarPasswordFragment"
         android:name="com.example.booksmartapp.datos.CambiarPasswordFragment"

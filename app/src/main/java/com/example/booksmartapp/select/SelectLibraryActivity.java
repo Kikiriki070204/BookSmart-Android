@@ -32,6 +32,7 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
 
     private RecyclerView bibliotecasRecycler;
     private TextView noBibliotecasText;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        sessionManager = SessionManager.getInstance();
         findViews();
         setUserInfo();
         setUpRecyclerView();
@@ -83,8 +85,8 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
 
     @Override
     public void OnClick(Biblioteca biblioteca) {
-        SessionManager sessionManager = SessionManager.getInstance();
-        sessionManager.setBibliotecaSeleccionadaId(biblioteca.getId());
+        sessionManager = SessionManager.getInstance();
+        sessionManager.saveBibliotecaSeleccionadaId(SelectLibraryActivity.this,biblioteca.getId());
         Intent intent = new Intent(this, BottomNavigationActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

@@ -40,7 +40,14 @@ public class BibliotecasRepository {
     public BibliotecasRepository(Context context) {
         sessionManager = SessionManager.getInstance();
         token = sessionManager.getToken(context);
-        id = sessionManager.getUser().getId();
+        if(sessionManager.getUsuario(context) == null)
+        {
+            id = sessionManager.getUser().getId();
+        }
+        else
+        {
+            id = sessionManager.getUsuario(context).getId();
+        }
         setRetrofit();
     }
 
@@ -146,7 +153,22 @@ public class BibliotecasRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     result.setValue(usuarioApiResponse);
                 } else {
-                    result.setValue(null);
+                    if (response.errorBody() != null) {
+                        try {
+                            Gson gson = new Gson();
+                            ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+
+                            ApiResponse<Usuario> errorApiResponse = new ApiResponse<>();
+                            errorApiResponse.setStatus(errorResponse.getStatus());
+                            errorApiResponse.setMsg(errorResponse.getMsg());
+                            errorApiResponse.setData(null);
+
+                            result.setValue(errorApiResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            result.setValue(null);
+                        }
+                    }
                 }
             }
 
@@ -170,7 +192,22 @@ public class BibliotecasRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     result.setValue(changeResponse);
                 } else {
-                    result.setValue(null);
+                    if (response.errorBody() != null) {
+                        try {
+                            Gson gson = new Gson();
+                            ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+
+                            ApiResponse errorApiResponse = new ApiResponse<>();
+                            errorApiResponse.setStatus(errorResponse.getStatus());
+                            errorApiResponse.setMsg(errorResponse.getMsg());
+                            errorApiResponse.setData(null);
+
+                            result.setValue(errorApiResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            result.setValue(null);
+                        }
+                    }
                 }
             }
 
@@ -194,7 +231,22 @@ public class BibliotecasRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     result.setValue(prestamoApiResponse);
                 } else {
-                    result.setValue(null);
+                    if (response.errorBody() != null) {
+                        try {
+                            Gson gson = new Gson();
+                            ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+
+                            ApiResponse<Prestamo> errorApiResponse = new ApiResponse<>();
+                            errorApiResponse.setStatus(errorResponse.getStatus());
+                            errorApiResponse.setMsg(errorResponse.getMsg());
+                            errorApiResponse.setData(null);
+
+                            result.setValue(errorApiResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            result.setValue(null);
+                        }
+                    }
                 }
             }
 

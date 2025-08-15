@@ -110,6 +110,38 @@ public class SessionManager {
         return usuario;
     }
 
+    public void saveContrasena(Context context, String contrasena) {
+        this.contrasena = contrasena;
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("contrasena", contrasena);
+        editor.apply();
+    }
+
+    public String getContrasena(Context context) {
+        if (contrasena == null) {
+            SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            contrasena = prefs.getString("contrasena", null);
+        }
+        return contrasena;
+    }
+
+    public void saveBibliotecaSeleccionadaId(Context context, int id) {
+        this.bibliotecaSeleccionadaId = id;
+        SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("bibliotecaSeleccionadaId", id);
+        editor.apply();
+    }
+
+    public int getBibliotecaSeleccionadaId(Context context) {
+        if (bibliotecaSeleccionadaId == 0) {
+            SharedPreferences prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            bibliotecaSeleccionadaId = prefs.getInt("bibliotecaSeleccionadaId", 0);
+        }
+        return bibliotecaSeleccionadaId;
+    }
+
     public void logout(Context context) {
         usuario = null;
         user = null;
@@ -123,4 +155,6 @@ public class SessionManager {
         editor.clear();
         editor.apply();
     }
+
+
 }

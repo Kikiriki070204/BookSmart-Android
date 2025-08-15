@@ -1,8 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".search.SearchFragment">
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/league_spartan_medium"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/Borders"
+        android:layout_alignParentTop="true"
+        android:text="@string/searchSubtitle" />
+
+    <RelativeLayout
+        android:id="@+id/searchContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title">
+        <LinearLayout
+            android:visibility="visible"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:visibility="visible"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/bottomnav_shape"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <SearchView
+                    android:id="@+id/searchView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:iconifiedByDefault="false"
+                    android:imeOptions="actionDone"
+                    android:focusableInTouchMode="true"
+                    android:clickable="true"
+                    android:queryBackground="@android:color/transparent"
+                    android:singleLine="true"
+                    android:focusable="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bookData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchContainer"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/bookTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/league_spartan_medium"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/Borders"
+            android:text="" />
+        <TextView
+            android:id="@+id/bookShelf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/league_spartan_bold"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textColor="@color/Btn2"
+            android:text="" />
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_below="@+id/bookData"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginStart="40dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="6dp"
+        app:cardBackgroundColor="@color/CardBackground"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:id="@+id/messageContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/findBook"
+                android:gravity="center"
+                android:fontFamily="@font/league_spartan_medium"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:textSize="36sp"
+                android:textColor="@color/Borders"
+                android:layout_marginBottom="10dp"
+                />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

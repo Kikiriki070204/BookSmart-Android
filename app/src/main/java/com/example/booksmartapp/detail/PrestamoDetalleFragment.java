@@ -83,7 +83,7 @@ public class PrestamoDetalleFragment extends Fragment {
                     autor.setText(prestamo.getLibro_autor());
                     datePrestamo.setText(prestamo.getFecha_prestamo());
                     dateEntrega.setText(prestamo.getFecha_devolucion());
-                    bookDesc.setText(prestamo.getLibro_descricpcion());
+                    bookDesc.setText(prestamo.getLibro_descripcion());
                     editorial.setText(prestamo.getLibro_editorial());
 
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

@@ -58,6 +58,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <!-- Search -->
+    <string name="searchSubtitle">Ingresa el nombre del libro que te interese</string>
+    <string name="findBook">¡Encuentra tu libro favorito!</string>
+    <string name="notFound">No se ha encontrado ningún libro con ese nombre</string>
+    <string name="disponible">Disponible</string>
+    <string name="noDisponible">En préstamo</string>
+    
     <!--errores-->
     <string name="formError1">Campo requerido, no puede ir vacío</string>
 
