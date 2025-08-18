@@ -4,9 +4,11 @@ import com.example.booksmartapp.models.Usuario;
 import com.example.booksmartapp.models.requests.ChangePassRequest;
 import com.example.booksmartapp.models.requests.LoginRequest;
 import com.example.booksmartapp.models.requests.RegisterRequest;
+import com.example.booksmartapp.models.requests.TokenRequest;
 import com.example.booksmartapp.models.requests.VerifyRequest;
 import com.example.booksmartapp.responses.ApiResponse;
 import com.example.booksmartapp.responses.LoginResponse;
+import com.example.booksmartapp.responses.TokenResponse;
 import com.example.booksmartapp.responses.UsuarioResponse;
 import com.example.booksmartapp.responses.VerifyResponse;
 
@@ -34,4 +36,7 @@ public interface AuthRoutes {
 
     @PUT("auth/cambiar-contrasena")
     Call<ApiResponse> cambiarContrasena(@Body ChangePassRequest request);
+
+    @POST("auth/refresh")
+    Call<ApiResponse<TokenResponse>> refreshToken(@Body TokenRequest request);
 }

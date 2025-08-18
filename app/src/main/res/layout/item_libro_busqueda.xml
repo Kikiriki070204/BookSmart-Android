@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/itemsBackground"
+    app:cardCornerRadius="10dp"
+    android:id="@+id/cardLibro"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/prestamo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <!-- Imagen -->
+        <ImageView
+            android:id="@+id/imagenLibro"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/thumbnail"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tituloLibro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Título del libro"
+            android:textColor="@color/Btn1"
+            android:textSize="16sp"
+            android:fontFamily="@font/league_spartan_semibold"
+            app:layout_constraintStart_toEndOf="@id/imagenLibro"
+            app:layout_constraintTop_toTopOf="@id/imagenLibro"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <!-- Autor -->
+        <TextView
+            android:id="@+id/autorLibro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Autor del libro"
+            android:textColor="@color/Borders"
+            android:textSize="14sp"
+            android:fontFamily="@font/league_spartan_medium"
+            app:layout_constraintStart_toEndOf="@id/imagenLibro"
+            app:layout_constraintTop_toBottomOf="@id/tituloLibro"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <!--ISBN-->
+        <TextView
+            android:id="@+id/isbnLibro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="ISBN del libro"
+            android:textColor="@color/hr"
+            android:textSize="12sp"
+            android:fontFamily="@font/league_spartan_semibold"
+            app:layout_constraintStart_toEndOf="@id/imagenLibro"
+            app:layout_constraintTop_toBottomOf="@id/autorLibro"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

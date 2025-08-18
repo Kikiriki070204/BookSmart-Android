@@ -31,5 +31,15 @@ public class TokenResponse {
     private String refreshToken;
     private Usuario user;
 
+    public int getExpires_in() {
+        return expires_in;
+    }
+
+    public void setExpires_in(int expires_in) {
+        this.expires_in = expires_in;
+    }
+
+    private int expires_in;
+
 
 }

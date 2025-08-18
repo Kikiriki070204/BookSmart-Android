@@ -12,11 +12,13 @@ import retrofit2.Retrofit;
 import com.example.booksmartapp.models.Usuario;
 import com.example.booksmartapp.models.requests.LoginRequest;
 import com.example.booksmartapp.models.requests.RegisterRequest;
+import com.example.booksmartapp.models.requests.TokenRequest;
 import com.example.booksmartapp.models.requests.VerifyRequest;
 import com.example.booksmartapp.register.routes.AuthRoutes;
 import com.example.booksmartapp.responses.ApiResponse;
 import com.example.booksmartapp.responses.ErrorResponse;
 import com.example.booksmartapp.responses.LoginResponse;
+import com.example.booksmartapp.responses.TokenResponse;
 import com.example.booksmartapp.responses.UsuarioResponse;
 import com.example.booksmartapp.responses.VerifyResponse;
 import com.example.booksmartapp.retrofit.auth_request;
@@ -150,5 +152,45 @@ public class AuthRepository {
         });
 
         return result;
+    }
+
+    public MutableLiveData<ApiResponse<TokenResponse>> refreshToken(TokenRequest request) {
+     setRetrofit();
+     AuthRoutes authRoute = retrofit.create(AuthRoutes.class);
+     MutableLiveData<ApiResponse<TokenResponse>> result = new MutableLiveData<>();
+
+     authRoute.refreshToken(request).enqueue(new Callback<>() {
+         @Override
+         public void onResponse(Call<ApiResponse<TokenResponse>> call, Response<ApiResponse<TokenResponse>> response) {
+             ApiResponse<TokenResponse> apiResponse = response.body();
+             if (response.isSuccessful() && response.body() != null) {
+                 result.setValue(apiResponse);
+             } else {
+                 if (response.errorBody() != null) {
+                     try {
+                         Gson gson = new Gson();
+                         ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+
+                         ApiResponse<TokenResponse> errorApiResponse = new ApiResponse<>();
+                         errorApiResponse.setStatus(errorResponse.getStatus());
+                         errorApiResponse.setMsg(errorResponse.getMsg());
+                         errorApiResponse.setData(null);
+
+                         result.setValue(errorApiResponse);
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                         result.setValue(null);
+                     }
+                 }
+             }
+         }
+
+         @Override
+         public void onFailure(Call<ApiResponse<TokenResponse>> call, Throwable t) {
+            result.setValue(null);
+         }
+     });
+
+    return result;
     }
 }

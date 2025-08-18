@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.booksmartapp.models.requests.LoginRequest;
 import com.example.booksmartapp.models.requests.RegisterRequest;
+import com.example.booksmartapp.models.requests.TokenRequest;
 import com.example.booksmartapp.models.requests.VerifyRequest;
 import com.example.booksmartapp.register.repository.AuthRepository;
 import com.example.booksmartapp.responses.ApiResponse;
 import com.example.booksmartapp.responses.LoginResponse;
+import com.example.booksmartapp.responses.TokenResponse;
 import com.example.booksmartapp.responses.UsuarioResponse;
 import com.example.booksmartapp.responses.VerifyResponse;
 
@@ -26,5 +28,9 @@ public class AuthViewModel extends ViewModel {
 
     public LiveData<ApiResponse<LoginResponse>> getLogin(LoginRequest request) {
         return authRepository.login(request);
+    }
+
+    public LiveData<ApiResponse<TokenResponse>> refreshToken(TokenRequest request){
+        return authRepository.refreshToken(request);
     }
 }

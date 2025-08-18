@@ -6,12 +6,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.booksmartapp.models.Bibliotecas;
+import com.example.booksmartapp.models.LibroBiblioteca;
 import com.example.booksmartapp.models.Prestamo;
 import com.example.booksmartapp.models.Prestamos;
 import com.example.booksmartapp.models.Usuario;
 import com.example.booksmartapp.models.requests.ChangePassRequest;
 import com.example.booksmartapp.models.requests.PrestamosRequest;
+import com.example.booksmartapp.models.requests.SearchRequest;
 import com.example.booksmartapp.responses.ApiResponse;
+import com.example.booksmartapp.responses.LibroUbicacionResponse;
 import com.example.booksmartapp.select.BibliotecasRepository.BibliotecasRepository;
 
 import java.util.List;
@@ -44,6 +47,16 @@ public class BibliotecasViewModel extends ViewModel {
     public LiveData<ApiResponse<Prestamo>> getPrestamo(int idPrestamo)
     {
         return bibliotecasRepository.getPrestamo(idPrestamo);
+    }
+
+    public LiveData<ApiResponse<List<LibroBiblioteca>>> getLibrosByNameSearch(SearchRequest request)
+    {
+        return bibliotecasRepository.getLibrosByNameSearch(request);
+    }
+
+    public LiveData<ApiResponse<LibroUbicacionResponse>> getLibroUbicacion(int id)
+    {
+        return bibliotecasRepository.getLibroUbicacion(id);
     }
 
 }

@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import com.example.booksmartapp.models.Biblioteca;
@@ -128,10 +129,16 @@ public class BottomNavigationActivity extends AppCompatActivity {
                     selectedLibraryId = b.getId();
                     sessionManager.saveBibliotecaSeleccionadaId(BottomNavigationActivity.this,selectedLibraryId);
 
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.replace(R.id.nav_host_fragment, new HomeFragment());
-                    transaction.commit();
+                    NavDestination currentDestination = navController.getCurrentDestination();
+                    int currentFragmentId = currentDestination != null ? currentDestination.getId() : -1;
+                    if (currentFragmentId == R.id.homeFragment) {
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction transaction = fragmentManager.beginTransaction();
+                        transaction.replace(R.id.nav_host_fragment, new HomeFragment());
+                        transaction.commit();
+                    } else {
+                        navController.navigate(currentFragmentId);
+                    }
                     break;
                 }
             }
@@ -167,7 +174,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
             } else if(destination.getId() == R.id.datosFragment) {
                 bibliotecas.setVisibility(View.GONE);
             } else if (destination.getId() == R.id.searchFragment) {
-                bibliotecas.setVisibility(View.GONE);
+                bibliotecas.setVisibility(View.VISIBLE);
                 settingsMenu.setVisibility(View.GONE);
             } else {
                     bibliotecas.setVisibility(View.VISIBLE);

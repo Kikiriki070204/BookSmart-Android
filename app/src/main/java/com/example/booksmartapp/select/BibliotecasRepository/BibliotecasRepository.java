@@ -5,15 +5,18 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.booksmartapp.models.Bibliotecas;
+import com.example.booksmartapp.models.LibroBiblioteca;
 import com.example.booksmartapp.models.Prestamo;
 import com.example.booksmartapp.models.Prestamos;
 import com.example.booksmartapp.models.SessionManager;
 import com.example.booksmartapp.models.Usuario;
 import com.example.booksmartapp.models.requests.ChangePassRequest;
 import com.example.booksmartapp.models.requests.PrestamosRequest;
+import com.example.booksmartapp.models.requests.SearchRequest;
 import com.example.booksmartapp.register.routes.AuthRoutes;
 import com.example.booksmartapp.responses.ApiResponse;
 import com.example.booksmartapp.responses.ErrorResponse;
+import com.example.booksmartapp.responses.LibroUbicacionResponse;
 import com.example.booksmartapp.responses.LoginResponse;
 import com.example.booksmartapp.responses.UsuarioResponse;
 import com.example.booksmartapp.responses.VerifyResponse;
@@ -256,6 +259,86 @@ public class BibliotecasRepository {
             }
         });
 
+        return result;
+    }
+
+    public MutableLiveData<ApiResponse<List<LibroBiblioteca>>> getLibrosByNameSearch(SearchRequest request)
+    {
+        setRetrofit();
+        BibliotecaRoutes searchRoute = retrofit.create(BibliotecaRoutes.class);
+        MutableLiveData<ApiResponse<List<LibroBiblioteca>>> result = new MutableLiveData<>();
+        searchRoute.getLibrosBiblioteca(request).enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<ApiResponse<List<LibroBiblioteca>>> call, Response<ApiResponse<List<LibroBiblioteca>>> response) {
+                ApiResponse<List<LibroBiblioteca>> apiResponse = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    result.setValue(apiResponse);
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            Gson gson = new Gson();
+                            ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+
+                            ApiResponse<List<LibroBiblioteca>> errorApiResponse = new ApiResponse<>();
+                            errorApiResponse.setStatus(errorResponse.getStatus());
+                            errorApiResponse.setMsg(errorResponse.getMsg());
+                            errorApiResponse.setData(null);
+
+                            result.setValue(errorApiResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            result.setValue(null);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<List<LibroBiblioteca>>> call, Throwable t) {
+                result.setValue(null);
+            }
+        });
+
+        return result;
+    }
+
+    public MutableLiveData<ApiResponse<LibroUbicacionResponse>> getLibroUbicacion(int id)
+    {
+        setRetrofit();
+        BibliotecaRoutes libroRoute = retrofit.create(BibliotecaRoutes.class);
+        MutableLiveData<ApiResponse<LibroUbicacionResponse>> result = new MutableLiveData<>();
+
+        libroRoute.getLibroUbicacion(id).enqueue(new Callback<ApiResponse<LibroUbicacionResponse>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<LibroUbicacionResponse>> call, Response<ApiResponse<LibroUbicacionResponse>> response) {
+                ApiResponse<LibroUbicacionResponse> ubicacionApiResponse = response.body();
+                if (response.isSuccessful() && response.body() != null) {
+                    result.setValue(ubicacionApiResponse);
+                } else {
+                    if (response.errorBody() != null) {
+                        try {
+                            Gson gson = new Gson();
+                            ErrorResponse<?> errorResponse = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+
+                            ApiResponse<LibroUbicacionResponse> errorApiResponse = new ApiResponse<>();
+                            errorApiResponse.setStatus(errorResponse.getStatus());
+                            errorApiResponse.setMsg(errorResponse.getMsg());
+                            errorApiResponse.setData(null);
+
+                            result.setValue(errorApiResponse);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            result.setValue(null);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<LibroUbicacionResponse>> call, Throwable t) {
+            result.setValue(null);
+            }
+        });
         return result;
     }
 

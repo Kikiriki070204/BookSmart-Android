@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title">
         <LinearLayout
+            android:id="@+id/searchLinear"
             android:visibility="visible"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
@@ -53,18 +54,37 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:iconifiedByDefault="false"
-                    android:imeOptions="actionDone"
                     android:focusableInTouchMode="true"
+                    android:imeOptions="actionNone"
                     android:clickable="true"
                     android:queryBackground="@android:color/transparent"
                     android:singleLine="true"
                     android:focusable="true" />
-
             </RelativeLayout>
-
         </LinearLayout>
-
     </RelativeLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/resultsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchContainer"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/another"
+        android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/resultadosRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical" />
+    </com.google.android.material.card.MaterialCardView>
 
     <LinearLayout
         android:id="@+id/bookData"
@@ -97,6 +117,7 @@
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/shelfContainer"
         android:layout_below="@+id/bookData"
         android:layout_width="match_parent"
         android:layout_height="400dp"
@@ -107,7 +128,6 @@
         android:layout_marginTop="20dp">
 
         <LinearLayout
-            android:id="@+id/messageContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp"
@@ -127,9 +147,23 @@
                 android:textColor="@color/Borders"
                 android:layout_marginBottom="10dp"
                 />
-
         </LinearLayout>
-
     </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bookState"
+        android:layout_width="200dp"
+        android:enabled="false"
+        android:layout_marginTop="10dp"
+        app:cornerRadius="5dp"
+        app:backgroundTint="@color/PopUps"
+        android:layout_below="@id/shelfContainer"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/league_spartan_semibold"
+        android:textColor="@color/white"
+        android:text=""
+        android:visibility="gone"
+        android:layout_height="50dp"/>
 
 </RelativeLayout>

@@ -47,25 +47,5 @@ public class SplashScreen extends AppCompatActivity {
             }
         }, 2000);
 
-        /*
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-        SessionManager sessionManager = SessionManager.getInstance();
-        String token = sessionManager.getToken(SplashScreen.this);
-        Usuario usuario = sessionManager.getUsuario(SplashScreen.this);
-
-        if (token != null && !token.isEmpty() && usuario != null) {
-            // Usuario logeado, redirigir a BottomNavActivity
-            Intent intent = new Intent(SplashScreen.this, BottomNavActivity.class);
-            startActivity(intent);
-        } else {
-            // No logeado, redirigir a MainActivity (login)
-            Intent intent = new Intent(SplashScreen.this, MainActivity.class);
-            startActivity(intent);
-        }
-
-        finish();
-    }, 2000);
-
-         */
     }
 }
