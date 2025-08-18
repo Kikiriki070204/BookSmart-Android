@@ -120,16 +120,32 @@
         android:id="@+id/shelfContainer"
         android:layout_below="@+id/bookData"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_centerHorizontal="true"
         app:cardCornerRadius="6dp"
         app:cardBackgroundColor="@color/CardBackground"
         android:layout_marginTop="20dp">
 
-        <LinearLayout
+        <GridLayout
+            android:id="@+id/gridEstante"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bookData"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="1"
+            android:rowCount="1"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:id="@+id/messageContainer"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
             android:padding="10dp"
             android:gravity="center"
             android:orientation="vertical">
@@ -148,7 +164,9 @@
                 android:layout_marginBottom="10dp"
                 />
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bookState"
         android:layout_width="200dp"
@@ -165,5 +183,4 @@
         android:text=""
         android:visibility="gone"
         android:layout_height="50dp"/>
-
 </RelativeLayout>

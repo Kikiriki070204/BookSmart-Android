@@ -1,17 +1,22 @@
 package com.example.booksmartapp.register;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
@@ -45,6 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     public retrofit2.Retrofit auth;
 
+    private View errorDialogView;
+
     private Pattern namePattern = Pattern.compile("^[A-ZÁÉÍÓÚÑ][a-záéíóúñA-ZÁÉÍÓÚÑ ]{1,49}$");
     private Pattern passwordPattern = Pattern.compile("^((?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*#?&])).{8,}$");
 
@@ -58,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        errorDialogView = LayoutInflater.from(RegisterActivity.this).inflate(R.layout.dialog_error_message, null);
 
         findViews();
         setGeneroValues();
@@ -346,13 +354,37 @@ public class RegisterActivity extends AppCompatActivity {
                 ViewModelProvider provider = new ViewModelProvider(RegisterActivity.this);
                 AuthViewModel registerViewModel = provider.get(AuthViewModel.class);
                 registerViewModel.getRegister(request).observe(RegisterActivity.this, usuarioResponse -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setView(errorDialogView);
+                    AlertDialog dialog = builder.create();
+                    dialog.setCancelable(false);
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                    TextView dialogTitle = errorDialogView.findViewById(R.id.dialogErrorTitle);
+                    TextView dialogMessage = errorDialogView.findViewById(R.id.dialogErrorMessage);
+                    Button btnAceptar = errorDialogView.findViewById(R.id.btnConfError);
+
                     if (usuarioResponse != null) {
+                        String status = usuarioResponse.getStatus();
+                        if(status.equals("Error al registrar usuario") || status.equals("Datos inválidos")) {
+                            dialogTitle.setText("Error");
+                            dialogMessage.setText(usuarioResponse.getMsg());
+                            btnAceptar.setOnClickListener(v -> dialog.dismiss());
+                            dialog.show();
+                        }
+                        else {
                             int id = usuarioResponse.getData().getUsuario_id();
                             Intent intent = new Intent(RegisterActivity.this, VerifyActivity.class);
                             intent.putExtra("user_id", id);
                             startActivity(intent);
+                        }
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Error al registrar", Toast.LENGTH_SHORT).show();
+
+                        dialogTitle.setText("Error");
+                        dialogMessage.setText("Hubo un problema al registrar. Intenta nuevamente.");
+                        btnAceptar.setOnClickListener(v -> dialog.dismiss());
+                        dialog.show();
+
                     }
                 });
             }

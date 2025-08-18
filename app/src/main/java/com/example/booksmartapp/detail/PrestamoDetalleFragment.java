@@ -115,6 +115,8 @@ public class PrestamoDetalleFragment extends Fragment {
                        if(diasTranscurridos >= totalDias)
                        {
                            remainingDays.setText("¡Préstamo pendiente! \nRecuerda entregar el libro cuanto antes y consultar por la multa que se te aplicará");
+                           dueDaysGray.setVisibility(View.GONE);
+                           dueDaysGreen.setVisibility(View.GONE);
                        }
                        else
                        {

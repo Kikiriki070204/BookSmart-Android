@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booksmartapp.BottomNavigationActivity;
+import com.example.booksmartapp.MainActivity;
 import com.example.booksmartapp.R;
 import com.example.booksmartapp.models.Biblioteca;
 import com.example.booksmartapp.models.SessionManager;
@@ -25,6 +26,7 @@ import com.example.booksmartapp.register.viewmodels.BibliotecaViewModelFactory;
 import com.example.booksmartapp.select.adapters.BibliotecaAdapter;
 import com.example.booksmartapp.select.listeners.BibliotecaListener;
 import com.example.booksmartapp.select.viewmodels.BibliotecasViewModel;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 
@@ -33,6 +35,7 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
     private RecyclerView bibliotecasRecycler;
     private TextView noBibliotecasText;
     private SessionManager sessionManager;
+    private MaterialButton btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +51,14 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
         findViews();
         setUserInfo();
         setUpRecyclerView();
+        setBtnLogout();
     }
 
     private void findViews()
     {
      bibliotecasRecycler = findViewById(R.id.bibliotecasRecyclerSelect);
      noBibliotecasText = findViewById(R.id.no_bibliotecas);
+     btnLogout = findViewById(R.id.btnLogout);
     }
 
     private void setUpRecyclerView() {
@@ -74,13 +79,26 @@ public class SelectLibraryActivity extends AppCompatActivity implements Bibliote
                 adapter.bibliotecasList.addAll(bibliotecas.getData().getBibliotecas());
                 noBibliotecasText.setVisibility(View.GONE);
                 bibliotecasRecycler.setVisibility(View.VISIBLE);
+                btnLogout.setVisibility(View.GONE);
             } else {
                 noBibliotecasText.setVisibility(View.VISIBLE);
                 bibliotecasRecycler.setVisibility(View.GONE);
+                btnLogout.setVisibility(View.VISIBLE);
             }
             adapter.notifyDataSetChanged();
         });
 
+    }
+
+    private void setBtnLogout()
+    {
+        btnLogout.setOnClickListener(v -> {
+            sessionManager.logout(this);
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
     }
 
     @Override

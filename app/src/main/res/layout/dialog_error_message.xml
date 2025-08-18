@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/messageDialog"
-    android:layout_width="330dp"
-    android:layout_height="250dp"
-    android:layout_centerInParent="true"
-    app:cardCornerRadius="30dp"
-    android:clipToOutline="true"
-    android:backgroundTint="@color/Borders">
+    android:padding="16dp"
+    android:layout_gravity="center">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/messageDialog"
+        android:layout_width="330dp"
+        android:layout_height="250dp"
+        app:cardCornerRadius="30dp"
+        android:clipToOutline="true"
+        android:backgroundTint="@color/Borders">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,6 +48,7 @@
             android:textColor="#FFFFFF"
             android:fontFamily="@font/league_spartan"
             android:layout_below="@id/dialogErrorTitle"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true" />
 
@@ -68,3 +74,4 @@
 
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>

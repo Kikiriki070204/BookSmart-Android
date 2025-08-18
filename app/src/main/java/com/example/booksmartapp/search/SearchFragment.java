@@ -9,12 +9,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.booksmartapp.R;
 import com.example.booksmartapp.models.LibroBiblioteca;
@@ -40,8 +43,9 @@ public class SearchFragment extends Fragment implements LibroListener {
     private MaterialButton btnBookState;
     private LibroSearchAdapter adapter;
     private BibliotecasViewModel viewModel;
-    private LinearLayout bookData;
+    private LinearLayout bookData, messageContainer;
     private TextView bookTitle, bookShelf;
+    private GridLayout gridEstante;
 
     private int bibliotecaId, libroBibliotecaId, cantidadColumnas, cantidadFilas;
     private SessionManager sessionManager;
@@ -90,6 +94,8 @@ public class SearchFragment extends Fragment implements LibroListener {
         bookData = rootView.findViewById(R.id.bookData);
         bookTitle = rootView.findViewById(R.id.bookTitle);
         bookShelf = rootView.findViewById(R.id.bookShelf);
+        gridEstante = rootView.findViewById(R.id.gridEstante);
+        messageContainer = rootView.findViewById(R.id.messageContainer);
     }
 
     public void setBusquedaRecycler(String textoBusqueda) {
@@ -143,30 +149,76 @@ public class SearchFragment extends Fragment implements LibroListener {
     @Override
     public void OnClick(LibroBiblioteca libroBiblioteca) {
     libroBibliotecaId = libroBiblioteca.getLibro_biblioteca_id();
-    if(libroBiblioteca.getEstado().equals("Disponible"))
-    {
-        btnBookState.setBackgroundColor(getResources().getColor(R.color.PopUps));
-    }
-    else
-    {
-        btnBookState.setBackgroundColor(getResources().getColor(R.color.unavailable));
-    }
-    btnBookState.setText(libroBiblioteca.getEstado());
-
+    resultCard.setVisibility(View.GONE);
+    setLibroUbicacion(libroBiblioteca);
     }
 
-    private void setLibroUbicacion()
+    private void setLibroUbicacion(LibroBiblioteca libroBiblioteca)
     {
         viewModel.getLibroUbicacion(libroBibliotecaId).observe(getViewLifecycleOwner(), libroUbicacionResponse -> {
             if (libroUbicacionResponse != null && libroUbicacionResponse.getData() != null) {
+                messageContainer.setVisibility(View.GONE);
                 bookData.setVisibility(View.VISIBLE);
                 bookTitle.setText(libroUbicacionResponse.getData().getLibro_nombre());
                 bookShelf.setText(libroUbicacionResponse.getData().getEstante_etiqueta());
+                btnBookState.setVisibility(View.VISIBLE);
+                if(libroBiblioteca.getEstado().equals("Disponible"))
+                {
+                    btnBookState.setBackgroundColor(getResources().getColor(R.color.PopUps));
+                }
+                else
+                {
+                    btnBookState.setBackgroundColor(getResources().getColor(R.color.unavailable));
+                }
+                btnBookState.setText(libroBiblioteca.getEstado());
 
                 //para dibujado
                 cantidadColumnas = libroUbicacionResponse.getData().getEstante_columnas();
                 cantidadFilas = libroUbicacionResponse.getData().getEstante_filas();
+                int fila = libroUbicacionResponse.getData().getLibro_fila();
+                int columna = libroUbicacionResponse.getData().getLibro_columna();
+                String seccionEtiqueta = libroUbicacionResponse.getData().getSeccion_etiqueta();
+                setDibujarEstante(fila, columna, seccionEtiqueta);
+            }
+            else
+            {
+                Toast.makeText(requireContext(), "Error al cargar los datos", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void setDibujarEstante(int libroFila, int libroColumna, String seccion)
+    {
+        gridEstante.removeAllViews();
+        gridEstante.setVisibility(View.VISIBLE);
+        gridEstante.setColumnCount(cantidadColumnas);
+        gridEstante.setRowCount(cantidadFilas);
+        for (int fila = 0; fila < cantidadFilas; fila++) {
+            for (int columna = 0; columna < cantidadColumnas; columna++) {
+                TextView celda = new TextView(requireContext());
+                celda.setText("");
+
+                if (fila == (libroFila - 1) && columna == (libroColumna - 1)) {
+                    celda.setText(seccion);
+                    celda.setBackgroundResource(R.drawable.celda_libro_background);
+                } else {
+                    celda.setBackgroundResource(R.drawable.celda_background);
+                }
+
+                celda.setGravity(Gravity.CENTER);
+                celda.setTextSize(14);
+                celda.setPadding(8, 8, 8, 8);
+
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                params.rowSpec = GridLayout.spec(fila);
+                params.height = 150;
+                params.setMargins(4, 4, 4, 4);
+                params.width = 0;
+                params.columnSpec = GridLayout.spec(columna, 1f);
+
+                celda.setLayoutParams(params);
+                gridEstante.addView(celda);
+            }
+        }
     }
 }

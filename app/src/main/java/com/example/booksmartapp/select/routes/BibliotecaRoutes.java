@@ -30,7 +30,7 @@ public interface BibliotecaRoutes {
     @POST("libro/nombre/Android")
     Call<ApiResponse<List<LibroBiblioteca>>> getLibrosBiblioteca(@Body SearchRequest request);
 
-    @GET("/libro/ubicacion/{id}")
+    @GET("libro/ubicacion/{id}")
     Call<ApiResponse<LibroUbicacionResponse>> getLibroUbicacion(@Path("id") int id);
 
 }

@@ -1,71 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/messageDialog"
-    android:layout_width="330dp"
-    android:layout_height="250dp"
-    android:layout_centerInParent="true"
-    app:cardCornerRadius="30dp"
-    android:clipToOutline="true"
-    android:backgroundTint="@color/Btn1">
+    android:padding="16dp"
+    android:layout_gravity="center">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/messageDialog"
+        android:layout_width="330dp"
+        android:layout_height="250dp"
+        app:cardCornerRadius="30dp"
+        android:clipToOutline="true"
+        android:backgroundTint="@color/Btn1">
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/warning_circle"
-            android:layout_centerHorizontal="true"
-            app:tint="@color/white"/>
-        <TextView
-            android:id="@+id/dialogTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/icon"
-            android:text=""
-            android:textSize="25sp"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:fontFamily="@font/league_spartan_medium"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:id="@+id/dialogMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="17sp"
-            android:textColor="#FFFFFF"
-            android:fontFamily="@font/league_spartan"
-            android:layout_below="@id/dialogTitle"
-            android:layout_marginTop="10dp"
-            android:layout_centerHorizontal="true" />
-
-        <LinearLayout
-            android:id="@+id/dialogButtons"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <Button
-                android:id="@+id/btnConf"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Aceptar"
+            android:layout_height="match_parent">
 
-                android:textAllCaps="false"
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/warning_circle"
+                android:layout_centerHorizontal="true"
+                app:tint="@color/white"/>
+            <TextView
+                android:id="@+id/dialogTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/icon"
+                android:text=""
                 android:textSize="25sp"
-                android:fontFamily="@font/league_spartan_semibold"
-                android:textColor="@color/white"
-                android:backgroundTint="@color/PopUps"/>
-        </LinearLayout>
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:fontFamily="@font/league_spartan_medium"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/dialogMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="17sp"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/league_spartan"
+                android:layout_below="@id/dialogTitle"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true" />
+
+            <LinearLayout
+                android:id="@+id/dialogButtons"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/btnConf"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Aceptar"
+
+                    android:textAllCaps="false"
+                    android:textSize="25sp"
+                    android:fontFamily="@font/league_spartan_semibold"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/PopUps"/>
+            </LinearLayout>
 
 
-    </RelativeLayout>
-</com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</FrameLayout>

@@ -106,6 +106,13 @@ public class PrestamosAdapter extends RecyclerView.Adapter<PrestamosAdapter.View
                 paramsGreen.weight = 3f;
                 paramsGray.weight = 1f;
                 dueDaysGray.setVisibility(View.GONE);
+            }else if(diasTranscurridos >= totalDias)
+            {
+                int diasRetraso = diasTranscurridos - totalDias;
+                progreso.setText(diasRetraso + " días de retraso");
+                progreso.setTextColor(itemView.getResources().getColor(R.color.unavailable));
+                paramsGray.weight = 4f;
+                dueDaysGreen.setVisibility(View.GONE);
             }
 
             dueDaysGreen.setLayoutParams(paramsGreen);
